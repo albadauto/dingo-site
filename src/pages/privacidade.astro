@@ -21,6 +21,7 @@ import { COMPANY, SITE } from '../site'
     <li>Dados de cadastro: nome, e-mail, telefone e dados do estabelecimento.</li>
     <li>Dados de pagamento: processados pelo Stripe. Não armazenamos números de cartão.</li>
     <li>Dados de uso do serviço: conversas do WhatsApp conectado, clientes, serviços, profissionais e agendamentos.</li>
+    <li>Dados do Google, se você usar o login com Google ou conectar o Google Agenda (detalhes abaixo).</li>
     <li>Dados técnicos: endereço IP e registros de acesso, para segurança e funcionamento.</li>
   </ul>
 
@@ -33,11 +34,28 @@ import { COMPANY, SITE } from '../site'
   </ul>
   <p>Não vendemos dados pessoais e não usamos as conversas dos seus clientes para publicidade.</p>
 
+  <h2>Login com Google e Google Agenda</h2>
+  <p>
+    Você pode entrar no {SITE.name} com sua conta Google e, se quiser, conectar o Google Agenda. As duas coisas são opcionais.
+  </p>
+  <ul>
+    <li><strong>Login com Google:</strong> recebemos apenas seu nome, e-mail e um identificador da conta Google, usados para criar sua conta e permitir o acesso. Não recebemos sua senha do Google.</li>
+    <li><strong>Google Agenda:</strong> com sua autorização, o {SITE.name} cria, atualiza e apaga na agenda escolhida os eventos dos horários marcados pelo {SITE.name}, e lê os compromissos dessa agenda apenas para saber quais horários estão ocupados e não oferecê-los aos seus clientes.</li>
+    <li>Guardamos o token de acesso do Google criptografado. Não guardamos o conteúdo dos seus outros eventos: só usamos o horário de início e fim, no momento da consulta.</li>
+    <li>Você pode desconectar o Google Agenda a qualquer momento em Configurações no painel, ou em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. Ao desconectar, a autorização é revogada.</li>
+  </ul>
+  <p>
+    O uso e a transferência de informações recebidas das APIs do Google para qualquer outro aplicativo seguem a
+    <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de Dados do Usuário dos Serviços de API do Google</a>,
+    incluindo os requisitos de Uso Limitado. Dados do Google não são vendidos, não são usados para publicidade, não são usados para treinar modelos de inteligência artificial e não são lidos por pessoas, salvo com sua permissão, por segurança ou por exigência legal.
+  </p>
+
   <h2>Com quem compartilhamos</h2>
   <p>Somente com fornecedores necessários para o serviço funcionar, que tratam os dados conforme nossas instruções:</p>
   <ul>
     <li>Provedor de inteligência artificial, para gerar as respostas das conversas.</li>
     <li>Stripe, para processar pagamentos.</li>
+    <li>Google, quando você usa o login com Google ou conecta o Google Agenda.</li>
     <li>Provedores de hospedagem e infraestrutura.</li>
   </ul>
   <p>Alguns desses fornecedores podem processar dados fora do Brasil, com as garantias previstas na LGPD.</p>
