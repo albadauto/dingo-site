@@ -34,21 +34,71 @@ import { COMPANY, SITE } from '../site'
   </ul>
   <p>Não vendemos dados pessoais e não usamos as conversas dos seus clientes para publicidade.</p>
 
-  <h2>Login com Google e Google Agenda</h2>
+  <h2 id="google">Dados do usuário do Google (login com Google e Google Agenda)</h2>
   <p>
-    Você pode entrar no {SITE.name} com sua conta Google e, se quiser, conectar o Google Agenda. As duas coisas são opcionais.
+    O aplicativo <strong>{SITE.name}</strong> oferece duas integrações opcionais com o Google: entrar com a conta Google e conectar o Google Agenda.
+    Esta seção explica exatamente quais dados do Google o {SITE.name} acessa, como usa, armazena, compartilha e exclui esses dados.
   </p>
+
+  <h3>Quais dados do Google acessamos</h3>
   <ul>
-    <li><strong>Login com Google:</strong> recebemos apenas seu nome, e-mail e um identificador da conta Google, usados para criar sua conta e permitir o acesso. Não recebemos sua senha do Google.</li>
-    <li><strong>Google Agenda:</strong> com sua autorização, o {SITE.name} cria, atualiza e apaga na agenda escolhida os eventos dos horários marcados pelo {SITE.name}, e lê os compromissos dessa agenda apenas para saber quais horários estão ocupados e não oferecê-los aos seus clientes.</li>
-    <li>Guardamos o token de acesso do Google criptografado. Não guardamos o conteúdo dos seus outros eventos: só usamos o horário de início e fim, no momento da consulta.</li>
-    <li>Você pode desconectar o Google Agenda a qualquer momento em Configurações no painel, ou em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. Ao desconectar, a autorização é revogada.</li>
+    <li><strong>Login com Google</strong> (escopos <code>openid</code> e <code>email</code>): nome, endereço de e-mail, se o e-mail é verificado e o identificador único da conta Google. Não temos acesso à sua senha do Google.</li>
+    <li><strong>Google Agenda</strong> (escopos <code>calendar.events</code> e <code>calendar.readonly</code>), somente se o dono do estabelecimento conectar: a lista de agendas em que a conta pode editar (nome e identificador de cada agenda) e os eventos da agenda escolhida para cada profissional.</li>
   </ul>
+
+  <h3>Como usamos esses dados</h3>
+  <ul>
+    <li>Nome, e-mail e identificador da conta Google: apenas para criar sua conta no {SITE.name} e permitir que você entre nela.</li>
+    <li>Lista de agendas: para você escolher em qual agenda cada profissional vai receber os horários.</li>
+    <li>Criar, alterar e apagar eventos: quando um horário é marcado, remarcado ou cancelado no {SITE.name}, o evento correspondente é criado, atualizado ou apagado na agenda escolhida. Os eventos contêm o serviço, o nome e o WhatsApp do cliente e o código do agendamento.</li>
+    <li>Ler eventos: usamos somente o horário de início e de fim dos compromissos da agenda escolhida para saber quais horários estão ocupados e não oferecê-los aos clientes do estabelecimento. Título, descrição, participantes e demais detalhes desses eventos não são guardados nem usados.</li>
+  </ul>
+  <p>Não usamos dados do Google para nenhuma outra finalidade.</p>
+
+  <h3>Como armazenamos e protegemos</h3>
+  <ul>
+    <li>Guardamos o e-mail e o identificador da conta Google junto com o seu cadastro.</li>
+    <li>Para o Google Agenda, guardamos o token de autorização (refresh token) criptografado, o e-mail da conta conectada, os identificadores das agendas escolhidas e os identificadores dos eventos criados pelo {SITE.name}.</li>
+    <li>Os horários ocupados lidos da agenda ficam apenas na memória do servidor por até 1 minuto, para evitar consultas repetidas, e não são gravados no banco de dados.</li>
+    <li>Todo o tráfego usa conexão criptografada (HTTPS), e o acesso aos dados é restrito por usuário e por estabelecimento.</li>
+  </ul>
+
+  <h3>Com quem compartilhamos dados do Google</h3>
   <p>
-    O uso e a transferência de informações recebidas das APIs do Google para qualquer outro aplicativo seguem a
-    <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de Dados do Usuário dos Serviços de API do Google</a>,
-    incluindo os requisitos de Uso Limitado. Dados do Google não são vendidos, não são usados para publicidade, não são usados para treinar modelos de inteligência artificial e não são lidos por pessoas, salvo com sua permissão, por segurança ou por exigência legal.
+    Não vendemos, não alugamos e não compartilhamos dados do Google com terceiros. Dados do Google não são enviados ao provedor de inteligência artificial,
+    não são usados para publicidade e não são usados para criar, treinar ou melhorar modelos de inteligência artificial. Pessoas da nossa equipe não leem esses dados,
+    exceto com sua autorização expressa, quando necessário para segurança, ou para cumprir a lei.
   </p>
+
+  <h3>Retenção e exclusão</h3>
+  <ul>
+    <li>Você pode desconectar o Google Agenda a qualquer momento em <strong>Configurações → Google Agenda → Desconectar</strong> no painel. Ao desconectar, revogamos a autorização no Google e apagamos o token e os identificadores de agenda guardados. Os eventos já criados continuam na sua agenda e podem ser apagados por você.</li>
+    <li>Você também pode remover o acesso em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+    <li>Ao excluir sua conta do {SITE.name}, todos os dados do Google associados a ela são excluídos. Para pedir a exclusão, escreva para <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</li>
+  </ul>
+
+  <h3>Uso Limitado</h3>
+  <p>
+    O uso e a transferência, pelo {SITE.name}, de informações recebidas das APIs do Google para qualquer outro aplicativo seguem a
+    <a href="https://developers.google.com/terms/api-services-user-data-policy">Política de Dados do Usuário dos Serviços de API do Google</a>,
+    incluindo os requisitos de Uso Limitado.
+  </p>
+
+  <h3 lang="en">Google user data (English summary)</h3>
+  <div lang="en">
+    <p>
+      {SITE.name} optionally lets users sign in with Google and connect Google Calendar.
+      <strong>Data accessed:</strong> with Google Sign-In, the user's name, email address and Google account ID; with Google Calendar (scopes calendar.events and calendar.readonly), the list of writable calendars and the events of the calendar chosen for each professional.
+      <strong>Use:</strong> the account data is used only to create and sign in to the {SITE.name} account; calendar access is used only to create, update and delete events for appointments booked in {SITE.name}, and to read the start and end times of existing events so busy times are not offered to customers.
+      <strong>Storage and protection:</strong> the OAuth refresh token is stored encrypted; event details from Google are not stored; all traffic uses HTTPS.
+      <strong>Sharing:</strong> Google user data is not sold, not shared with third parties, not sent to AI providers, not used for advertising and not used to train AI models.
+      <strong>Retention and deletion:</strong> users can disconnect Google Calendar at any time in Settings, which revokes access and deletes the stored token; deleting the account deletes all associated Google data; requests can be sent to <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.
+    </p>
+    <p>
+      {SITE.name}'s use and transfer to any other app of information received from Google APIs will adhere to the
+      <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.
+    </p>
+  </div>
 
   <h2>Com quem compartilhamos</h2>
   <p>Somente com fornecedores necessários para o serviço funcionar, que tratam os dados conforme nossas instruções:</p>
