@@ -1,45 +1,95 @@
 ---
-// Conversa de exemplo do hero. As mensagens entram em sequência ao carregar a página
-// (uma única animação; quem prefere menos movimento vê tudo de uma vez).
-const msgs = [
-  { from: 'c', text: 'Boa noite! Amanhã tem horário pra corte e barba depois das 18h?' },
-  { from: 'd', text: 'Boa noite! Tenho sim 🙌\nCom o Rafa às 18h ou 19h30, e com o Paulo às 18h30. Qual fica melhor?' },
-  { from: 'c', text: '18h30 com o Paulo' },
-  { from: 'd', text: 'Fechado: corte + barba amanhã às 18h30 com o Paulo, R$ 70. Te mando um lembrete à tarde ✂️' },
+// Conversas de exemplo do hero, uma de cada tipo de negócio. As mensagens entram em
+// sequência e, depois de alguns segundos, troca para o próximo negócio.
+// Quem prefere menos movimento vê só a primeira conversa, inteira.
+const convs = [
+  {
+    name: 'Ju Nails',
+    time: '22:14',
+    foot: 'A Ju está com a mão no gel.',
+    msgs: [
+      { from: 'c', text: 'Oi! Tem horário amanhã à tarde pra manutenção do gel?' },
+      { from: 'd', text: 'Oi! Tenho sim 💅\nAmanhã às 14h ou às 16h30. Qual fica melhor?' },
+      { from: 'c', text: '16h30' },
+      { from: 'd', text: 'Fechado: manutenção do gel amanhã às 16h30, R$ 120. Te mando um lembrete de manhã!' },
+    ],
+  },
+  {
+    name: 'Studio Ana Brows',
+    time: '07:40',
+    foot: 'A Ana ainda nem chegou no estúdio.',
+    msgs: [
+      { from: 'c', text: 'Bom dia! Quanto fica a sobrancelha fio a fio?' },
+      { from: 'd', text: 'Bom dia! Fica R$ 450, com retoque incluso em 35 dias ✨\nTenho quinta às 14h ou sexta às 10h.' },
+      { from: 'c', text: 'Sexta às 10h' },
+      { from: 'd', text: 'Fechado: sobrancelha fio a fio sexta às 10h com a Ana. Na data do retoque, eu te chamo.' },
+    ],
+  },
+  {
+    name: 'Barbearia do Zé',
+    time: '23:47',
+    foot: 'O dono da barbearia está dormindo.',
+    msgs: [
+      { from: 'c', text: 'Boa noite! Amanhã tem horário pra corte e barba depois das 18h?' },
+      { from: 'd', text: 'Boa noite! Tenho sim 🙌\nCom o Rafa às 18h ou 19h30, e com o Paulo às 18h30. Qual fica melhor?' },
+      { from: 'c', text: '18h30 com o Paulo' },
+      { from: 'd', text: 'Fechado: corte + barba amanhã às 18h30 com o Paulo, R$ 70. Te mando um lembrete à tarde ✂️' },
+    ],
+  },
 ]
 ---
 
-<div class="relative mx-auto w-full max-w-[380px]" aria-label="Exemplo de conversa do Dingo com um cliente no WhatsApp" role="img">
+<div class="relative mx-auto w-full max-w-[380px]" aria-label="Exemplos de conversas do Dingo com clientes no WhatsApp" role="img">
   <div class="absolute -inset-6 -z-10 rounded-[48px] bg-raposa/10 blur-3xl" aria-hidden="true"></div>
-  <div class="overflow-hidden rounded-[32px] border border-musgo bg-mata shadow-2xl shadow-black/50">
-    <div class="flex items-center gap-3 border-b border-musgo px-5 py-4">
-      <img src="/favicon.png" alt="" width="36" height="36" class="h-9 w-9 rounded-xl" />
-      <div class="flex-1">
-        <p class="text-sm font-semibold">Barbearia do Zé</p>
-        <p class="text-xs text-folha">respondendo agora</p>
-      </div>
-      <span class="rounded-full bg-copa px-2.5 py-1 font-display text-sm font-bold text-pelagem">23:47</span>
-    </div>
-    <div class="space-y-2.5 px-4 py-5 text-[14px] leading-snug">
-      {
-        msgs.map((m, i) => (
-          <div class:list={['chat-in flex', m.from === 'c' ? 'justify-end' : 'justify-start']} style={`--d:${0.35 + i * 0.9}s`}>
-            <p
-              class:list={[
-                'max-w-[86%] whitespace-pre-line rounded-2xl px-3.5 py-2.5',
-                m.from === 'c' ? 'rounded-br-md bg-copa' : 'rounded-bl-md border border-raposa/40 bg-noite',
-              ]}
-            >
-              {m.from === 'd' && <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>}
-              {m.text}
-            </p>
+  <div class="overflow-hidden rounded-[32px] border border-musgo bg-mata shadow-2xl shadow-black/50" data-chat-demo>
+    {
+      convs.map((c, n) => (
+        <div class:list={['conv', n > 0 && 'hidden']} data-conv>
+          <div class="flex items-center gap-3 border-b border-musgo px-5 py-4">
+            <img src="/favicon.png" alt="" width="36" height="36" class="h-9 w-9 rounded-xl" />
+            <div class="flex-1">
+              <p class="text-sm font-semibold">{c.name}</p>
+              <p class="text-xs text-folha">respondendo agora</p>
+            </div>
+            <span class="rounded-full bg-copa px-2.5 py-1 font-display text-sm font-bold text-pelagem">{c.time}</span>
           </div>
-        ))
-      }
-    </div>
-    <div class="border-t border-musgo px-5 py-3 text-center text-xs text-liquen">O dono da barbearia está dormindo.</div>
+          <div class="min-h-[300px] space-y-2.5 px-4 py-5 text-[14px] leading-snug">
+            {c.msgs.map((m, i) => (
+              <div class:list={['chat-in flex', m.from === 'c' ? 'justify-end' : 'justify-start']} style={`--d:${0.35 + i * 0.9}s`}>
+                <p
+                  class:list={[
+                    'max-w-[86%] whitespace-pre-line rounded-2xl px-3.5 py-2.5',
+                    m.from === 'c' ? 'rounded-br-md bg-copa' : 'rounded-bl-md border border-raposa/40 bg-noite',
+                  ]}
+                >
+                  {m.from === 'd' && <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>}
+                  {m.text}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div class="border-t border-musgo px-5 py-3 text-center text-xs text-liquen">{c.foot}</div>
+        </div>
+      ))
+    }
   </div>
 </div>
+
+<script>
+  // Troca de negócio a cada 9s. Ao reaparecer, a animação das mensagens recomeça.
+  const box = document.querySelector('[data-chat-demo]')
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (box && !reduce) {
+    const items = [...box.querySelectorAll('[data-conv]')]
+    let i = 0
+    setInterval(() => {
+      if (document.hidden) return
+      items[i].classList.add('hidden')
+      i = (i + 1) % items.length
+      items[i].classList.remove('hidden')
+    }, 9000)
+  }
+</script>
 
 <style>
   .chat-in {

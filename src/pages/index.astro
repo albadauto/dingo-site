@@ -14,11 +14,11 @@ const posts = (await getPosts()).slice(0, 3)
 const steps = [
   {
     title: 'Conecte seu WhatsApp',
-    text: 'No painel, gere o QR code e escaneie com o celular da barbearia, em Aparelhos conectados. O número continua o mesmo.',
+    text: 'No painel, gere o QR code e escaneie com o celular do seu negócio, em Aparelhos conectados. O número continua o mesmo.',
   },
   {
     title: 'Cadastre serviços e horários',
-    text: 'Preço e duração de cada serviço, quem faz o quê e o expediente de cada profissional. Leva uns 10 minutos.',
+    text: 'Preço, duração e prazo de retorno de cada serviço, quem faz o quê e o expediente de cada profissional. Leva uns 10 minutos, e a conta já vem com exemplos do seu tipo de negócio.',
   },
   {
     title: 'O Dingo começa a atender',
@@ -27,14 +27,21 @@ const steps = [
 ]
 
 const features = [
-  ['Agenda por profissional', 'Cada barbeiro ou cabeleireira com seus serviços, horários e folgas. O Dingo nunca marca em cima de outro cliente.'],
+  ['Agenda por profissional', 'Cada profissional com seus serviços, horários e folgas. O Dingo nunca marca em cima de outro cliente.'],
+  ['Chama a cliente de volta', 'Retoque da micropigmentação, manutenção do gel, o corte do mês: na data certa, o Dingo chama a cliente e já oferece horários.'],
   ['Marca, remarca e cancela', 'O cliente resolve tudo pela conversa, sem link, sem aplicativo e sem cadastro.'],
   ['Lembrete automático', 'Na véspera, o cliente recebe um lembrete e confirma. Se não puder ir, o Dingo remarca na hora e o horário volta para a agenda.'],
   ['Você assume quando quiser', 'Respondeu pelo celular? O Dingo fica quieto naquela conversa. Pelo painel você devolve para ele com um clique.'],
   ['Pede ajuda quando precisa', 'Reclamação, pedido fora do comum ou cliente querendo falar com alguém: a conversa é marcada para você responder.'],
   ['Painel ao vivo', 'Conversas, agenda do dia, clientes e quanto entrou no mês, no computador ou no celular.'],
   ['Do seu jeito', 'Você escolhe o tom (descontraído, neutro ou formal) e ensina o que o Dingo precisa saber: endereço, pagamento, regras.'],
-  ['Equipe com login próprio', 'Cada pessoa da equipe entra com o seu acesso para acompanhar conversas e agenda.'],
+  ]
+
+const audiences = [
+  { href: '/nail-designers/', icon: '💅', title: 'Nail designers', text: 'Responde enquanto você está com a mão no gel e chama a cliente na data da manutenção.' },
+  { href: '/micropigmentacao/', icon: '✨', title: 'Micropigmentação', text: 'Passa valores, agenda avaliação e procedimento e chama a cliente para o retoque.' },
+  { href: '/barbearias/', icon: '💈', title: 'Barbearias', text: 'Agenda de cada barbeiro, preço na ponta da língua e lembrete na véspera.' },
+  { href: '/saloes-de-beleza/', icon: '💇‍♀️', title: 'Salões de beleza', text: 'Vários profissionais e serviços longos, sem conflito de horário.' },
 ]
 
 const jsonLd = [
@@ -68,13 +75,13 @@ const jsonLd = [
       <div>
         <p class="inline-flex items-center gap-2 rounded-full border border-musgo px-3 py-1 text-sm text-liquen">
           <span class="h-1.5 w-1.5 rounded-full bg-folha"></span>
-          Para barbearias e salões de beleza
+          IA para negócios de beleza
         </p>
         <h1 class="mt-6 text-[clamp(3rem,7vw,5rem)] font-extrabold leading-[0.92]">
-          Seu WhatsApp responde. Você&nbsp;corta.
+          Seu WhatsApp responde. Você&nbsp;atende.
         </h1>
         <p class="mt-6 max-w-xl text-lg text-liquen sm:text-xl">
-          O Dingo é uma inteligência artificial que atende seus clientes no WhatsApp: diz o preço, mostra os horários livres, marca, remarca e lembra. Você acompanha tudo e assume a conversa quando quiser.
+          O Dingo é uma inteligência artificial que atende o WhatsApp do seu negócio de beleza: diz o preço, mostra os horários livres, marca, lembra e chama a cliente de volta na hora do retoque ou da manutenção. Você acompanha tudo e assume a conversa quando quiser.
         </p>
         <div class="mt-9 flex flex-wrap items-center gap-3">
           <a href={SITE.signupUrl} class="btn-primary !px-6 !py-3.5 text-base">Testar {SITE.trialDays} dias grátis</a>
@@ -87,6 +94,28 @@ const jsonLd = [
   </section>
 
   <DayTimeline />
+
+  <!-- Para quem -->
+  <section id="para-quem" class="py-20 sm:py-28" aria-labelledby="quem-titulo">
+    <div class="wrap">
+      <h2 id="quem-titulo" class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">Feito para quem trabalha com as mãos ocupadas.</h2>
+      <p class="mt-4 max-w-2xl text-lg text-liquen">Na hora do cadastro você escolhe o seu tipo de negócio, e o Dingo já começa com os serviços e o jeito de falar certos.</p>
+      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          audiences.map((a) => (
+            <li>
+              <a href={a.href} class="group flex h-full flex-col rounded-3xl border border-musgo bg-mata/50 p-6 transition-colors hover:border-raposa/60">
+                <span class="text-3xl" aria-hidden="true">{a.icon}</span>
+                <h3 class="mt-4 text-xl font-bold group-hover:text-pelagem">{a.title}</h3>
+                <p class="mt-2 flex-1 text-sm text-liquen">{a.text}</p>
+                <span class="mt-5 text-sm font-semibold text-pelagem">Ver como funciona →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
   <!-- Como funciona -->
   <section id="como-funciona" class="py-20 sm:py-28" aria-labelledby="como-titulo">
@@ -127,17 +156,17 @@ const jsonLd = [
           <span class="rounded-lg border border-musgo bg-mata px-3 py-1.5 text-xs">Assumir conversa</span>
         </div>
         <div class="mt-4 space-y-2 text-[14px]">
-          <p class="max-w-[80%] rounded-2xl rounded-bl-md bg-copa px-3.5 py-2.5">Queria falar com o Zé sobre um corte pro casamento</p>
+          <p class="max-w-[80%] rounded-2xl rounded-bl-md bg-copa px-3.5 py-2.5">Queria falar com a Ju sobre as unhas pro meu casamento</p>
           <p class="ml-auto max-w-[80%] rounded-2xl rounded-br-md border border-raposa/40 px-3.5 py-2.5">
             <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>
-            Claro! Vou chamar o Zé pra falar com você.
+            Que lindo! Vou chamar a Ju pra falar com você.
           </p>
           <p class="ml-auto max-w-[80%] rounded-2xl rounded-br-md bg-raposa px-3.5 py-2.5 text-noite">
-            <span class="mb-0.5 block text-[11px] font-bold text-noite/70">Zé</span>
-            Fala, Lucas! Parabéns pelo casamento. Me conta a data que eu separo um horário.
+            <span class="mb-0.5 block text-[11px] font-bold text-noite/70">Ju</span>
+            Oi, Carol! Parabéns pelo casamento 💍 Me conta a data que eu separo um horário especial.
           </p>
         </div>
-        <p class="mt-4 text-center text-xs text-liquen">O Zé respondeu, e o Dingo saiu da conversa.</p>
+        <p class="mt-4 text-center text-xs text-liquen">A Ju respondeu, e o Dingo saiu da conversa.</p>
       </div>
     </div>
   </section>

@@ -1,5 +1,5 @@
 ---
-// Página por público (barbearias / salões), com texto e exemplos próprios para SEO.
+// Página por público (barbearias, salões, micropigmentação, nail designers), com texto e exemplos próprios para SEO.
 import Base from '../layouts/Base.astro'
 import Pricing from './Pricing.astro'
 import FinalCta from './FinalCta.astro'
@@ -13,11 +13,12 @@ interface Props {
   conversation: { from: 'c' | 'd'; text: string }[]
   pains: { title: string; text: string }[]
   examples: string[]
+  image?: string
 }
-const { metaTitle, metaDescription, title, lead, conversation, pains, examples } = Astro.props
+const { metaTitle, metaDescription, title, lead, conversation, pains, examples, image } = Astro.props
 ---
 
-<Base title={metaTitle} description={metaDescription}>
+<Base title={metaTitle} description={metaDescription} image={image}>
   <section class="wrap grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[1.3fr_1fr]">
     <div>
       <h1 class="text-[clamp(2.5rem,5.5vw,4.25rem)] font-extrabold leading-[0.95]">{title}</h1>

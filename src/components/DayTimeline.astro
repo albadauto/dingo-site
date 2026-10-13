@@ -1,23 +1,29 @@
 ---
-// "Um dia na barbearia": o que chega no WhatsApp enquanto o barbeiro não pode responder.
+// "Um dia no estúdio": o que chega no WhatsApp enquanto a profissional não pode responder.
 const moments = [
   {
     time: '07:12',
     you: 'Você ainda nem abriu a porta',
-    client: 'Bom dia! Hoje tem horário pra corte?',
+    client: 'Bom dia! Hoje tem horário pra manutenção?',
     dingo: 'Bom dia! Hoje tenho às 10h, 11h30 e 15h. Qual prefere?',
   },
   {
+    time: '10:00',
+    you: 'O Dingo chama quem está na data',
+    client: '',
+    dingo: 'Oi, Carla! Já faz 21 dias do seu alongamento. Está na hora da manutenção. Quer que eu veja um horário?',
+  },
+  {
     time: '10:40',
-    you: 'Navalha na mão, cliente na cadeira',
-    client: 'Quanto tá a barba?',
-    dingo: 'A barba sai R$ 35 e leva uns 30 minutos. Quer marcar?',
+    you: 'Mãos ocupadas, cliente na cadeira',
+    client: 'Quanto fica a sobrancelha fio a fio?',
+    dingo: 'Fica R$ 450, com retoque incluso. Quer marcar uma avaliação?',
   },
   {
     time: '13:05',
     you: 'Hora do almoço',
     client: 'Consigo passar meu horário de hoje pra amanhã?',
-    dingo: 'Consegue! Amanhã tenho 9h30 ou 14h com o Rafa. Remarco pra qual?',
+    dingo: 'Consegue! Amanhã tenho 9h30 ou 14h. Remarco pra qual?',
   },
   {
     time: '16:20',
@@ -34,7 +40,7 @@ const moments = [
   {
     time: '23:47',
     you: 'Dormindo',
-    client: 'Tem horário sábado de manhã?',
+    client: 'Tem horário sábado de manhã pra corte?',
     dingo: 'Tenho sábado às 9h e 10h30. Já deixo reservado pra você?',
   },
 ]
@@ -48,7 +54,7 @@ const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3))
         O WhatsApp não para. Você não precisa parar.
       </h2>
       <p class="mt-4 text-lg text-liquen">
-        Um dia comum: mensagens chegando enquanto você atende, almoça, fecha a loja e dorme. O Dingo responde cada uma na hora, com seus preços e a sua agenda de verdade.
+        Um dia comum: mensagens chegando enquanto você atende, almoça, fecha e dorme. E clientes sendo chamadas de volta na data certa. O Dingo responde cada uma na hora, com seus preços e a sua agenda de verdade.
       </p>
     </div>
 
@@ -81,7 +87,7 @@ const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3))
             <p class="font-display text-5xl font-extrabold tracking-tight text-raposa">{m.time}</p>
             <p class="mt-1 text-sm text-liquen">{m.you}</p>
             <div class="mt-5 flex flex-1 flex-col gap-2 text-[14px] leading-snug">
-              <p class="ml-auto max-w-[88%] rounded-2xl rounded-br-md bg-copa px-3.5 py-2.5">{m.client}</p>
+              {m.client && <p class="ml-auto max-w-[88%] rounded-2xl rounded-br-md bg-copa px-3.5 py-2.5">{m.client}</p>}
               <p class="max-w-[90%] rounded-2xl rounded-bl-md border border-raposa/40 px-3.5 py-2.5">
                 <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>
                 {m.dingo}

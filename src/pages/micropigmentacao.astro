@@ -1,0 +1,33 @@
+---
+import AudiencePage from '../components/AudiencePage.astro'
+---
+
+<AudiencePage
+  metaTitle="Atendimento e agendamento pelo WhatsApp para micropigmentação"
+  metaDescription="O Dingo atende as clientes do seu estúdio de micropigmentação no WhatsApp com inteligência artificial: valores, horários livres, agendamento e lembrete do retoque na data certa. 7 dias grátis."
+  image="/og/micropigmentacao.png"
+  title="Cada retoque marcado na hora certa."
+  lead="Enquanto você está no meio de um procedimento, o Dingo responde quem chama no WhatsApp, passa valores, marca avaliação e procedimento e, quando chega a data do retoque, chama a cliente de volta."
+  conversation={[
+    { from: 'c', text: 'Oi! Quanto fica o fio a fio? Tem retoque?' },
+    { from: 'd', text: 'Oi! A sobrancelha fio a fio fica R$ 450, com retoque incluso entre 30 e 40 dias ✨\nTenho quinta às 14h ou sexta às 10h.' },
+    { from: 'c', text: 'Sexta às 10h' },
+    { from: 'd', text: 'Fechado: sobrancelha fio a fio sexta às 10h com a Ana. Quando chegar a data do retoque, eu te chamo por aqui.' },
+  ]}
+  pains={[
+    { title: 'Não interrompe o procedimento', text: 'Você trabalha com calma, e quem chama no WhatsApp tem resposta na hora, com seus valores e sua agenda de verdade.' },
+    { title: 'Retoque no prazo, sem planilha', text: 'Você define depois de quantos dias cada procedimento tem retoque. Na data, o Dingo chama a cliente e já oferece horários.' },
+    { title: 'Menos falta em horário longo', text: 'Procedimento de duas horas vazio custa caro. Lembrete na véspera com confirmação, e quem não puder ir remarca pela conversa.' },
+    { title: 'Sem dar palpite de saúde', text: 'Perguntas sobre gravidez, medicamentos ou alergias, o Dingo deixa para você avaliar. Ele informa, agenda e chama você quando precisa.' },
+  ]}
+  examples={[
+    'Quanto fica a sobrancelha fio a fio?',
+    'O retoque está incluso?',
+    'Vocês fazem micropigmentação labial?',
+    'Tem horário essa semana?',
+    'Quanto tempo dura o procedimento?',
+    'Precisa de avaliação antes?',
+    'Aceita Pix ou cartão?',
+    'Onde fica o estúdio?',
+  ]}
+/>

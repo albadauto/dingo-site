@@ -1,0 +1,33 @@
+---
+import AudiencePage from '../components/AudiencePage.astro'
+---
+
+<AudiencePage
+  metaTitle="Atendimento e agendamento pelo WhatsApp para nail designer"
+  metaDescription="O Dingo atende as clientes da sua nail designer no WhatsApp com inteligência artificial: preços, horários livres, agendamento e lembrete da manutenção na data certa. 7 dias grátis."
+  image="/og/nail-designers.png"
+  title="Responde enquanto você faz as unhas."
+  lead="Com a mão no gel não dá para pegar o celular. O Dingo responde suas clientes no WhatsApp na hora, mostra seus horários livres, marca na sua agenda e chama cada uma na data da manutenção."
+  conversation={[
+    { from: 'c', text: 'Oi! Tem horário amanhã à tarde pra manutenção do gel?' },
+    { from: 'd', text: 'Oi! Tenho sim 💅\nAmanhã às 14h ou às 16h30. Qual fica melhor?' },
+    { from: 'c', text: '16h30' },
+    { from: 'd', text: 'Fechado: manutenção do gel amanhã às 16h30, R$ 120. Te mando um lembrete de manhã!' },
+  ]}
+  pains={[
+    { title: 'Não larga a cliente da mesa', text: 'Você termina a unha com calma, e quem chama no WhatsApp tem resposta na hora. Ninguém marca com outra por falta de resposta.' },
+    { title: 'Manutenção que volta sozinha', text: 'Você diz de quantos em quantos dias é a manutenção. Na data, o Dingo chama a cliente: "Já está na hora da sua manutenção, quer marcar?".' },
+    { title: 'Menos falta', text: 'Lembrete na véspera com confirmação. Se a cliente não puder ir, remarca pela própria conversa e o horário volta para a agenda.' },
+    { title: 'Atende fora do horário', text: 'Muita cliente marca à noite, depois do trabalho. O Dingo responde nesse horário também, e você vê tudo no dia seguinte.' },
+  ]}
+  examples={[
+    'Quanto tá o alongamento em gel?',
+    'Tem horário pra manutenção amanhã?',
+    'Faz esmaltação em gel?',
+    'Consigo remarcar pra sábado?',
+    'Quanto tempo demora o alongamento?',
+    'Aceita Pix?',
+    'Onde você atende?',
+    'Faz pé e mão junto?',
+  ]}
+/>

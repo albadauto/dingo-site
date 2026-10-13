@@ -1,6 +1,6 @@
 ---
 title: "Atendimento com IA no WhatsApp: o que faz, o que não faz e como usar bem"
-description: "Uma explicação direta sobre atendimento com inteligência artificial no WhatsApp para barbearias e salões: como funciona, onde ajuda, os limites e os cuidados."
+description: "Uma explicação direta sobre atendimento com inteligência artificial no WhatsApp para negócios de beleza: como funciona, onde ajuda, os limites e os cuidados."
 pubDate: 2026-10-12
 image: /og/atendimento-com-ia-no-whatsapp.png
 category: Atendimento

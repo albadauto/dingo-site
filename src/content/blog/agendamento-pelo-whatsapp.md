@@ -1,12 +1,12 @@
 ---
 title: "Agendamento pelo WhatsApp: como organizar sem perder cliente"
-description: "O WhatsApp virou a recepção de barbearias e salões. Veja como organizar o agendamento por lá sem conflito de horário, sem demora e sem depender só da memória."
+description: "O WhatsApp virou a recepção dos negócios de beleza. Veja como organizar o agendamento por lá sem conflito de horário, sem demora e sem depender só da memória."
 pubDate: 2026-10-12
 image: /og/agendamento-pelo-whatsapp.png
 category: Agenda
 ---
 
-Para a maioria das barbearias e salões, o WhatsApp é a porta de entrada. O cliente não quer baixar aplicativo nem criar cadastro em site: ele quer mandar "tem horário amanhã?" e receber uma resposta.
+Para a maioria dos negócios de beleza (barbearias, salões, estúdios de micropigmentação, nail designers), o WhatsApp é a porta de entrada. O cliente não quer baixar aplicativo nem criar cadastro em site: ele quer mandar "tem horário amanhã?" e receber uma resposta.
 
 O problema é que o WhatsApp não foi feito para ser agenda. Sem um método, aparecem os mesmos problemas de sempre: dois clientes no mesmo horário, gente esperando resposta por horas e aquele "eu marquei com você, sim!" que ninguém consegue confirmar.
 
@@ -14,7 +14,7 @@ O problema é que o WhatsApp não foi feito para ser agenda. Sem um método, apa
 
 **Agenda só na cabeça (ou no caderno).** Funciona até o dia em que não funciona. Com mais de um profissional, fica quase impossível saber o que está livre sem perguntar para todo mundo.
 
-**Responder só quando dá.** Entre um corte e outro, a mensagem fica para depois. Depois vira à noite. À noite o cliente já marcou em outro lugar.
+**Responder só quando dá.** Entre um atendimento e outro, a mensagem fica para depois. Depois vira à noite. À noite o cliente já marcou em outro lugar.
 
 **Confirmar de qualquer jeito.** "Pode vir às 4" pode ser 4 da tarde de hoje ou de amanhã. Sem confirmar dia, hora e serviço, a confusão é questão de tempo.
 
