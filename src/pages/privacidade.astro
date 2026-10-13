@@ -43,7 +43,7 @@ import { COMPANY, SITE } from '../site'
   <h3>Quais dados do Google acessamos</h3>
   <ul>
     <li><strong>Login com Google</strong> (escopos <code>openid</code> e <code>email</code>): nome, endereço de e-mail, se o e-mail é verificado e o identificador único da conta Google. Não temos acesso à sua senha do Google.</li>
-    <li><strong>Google Agenda</strong> (escopos <code>calendar.events</code> e <code>calendar.readonly</code>), somente se o dono do estabelecimento conectar: a lista de agendas em que a conta pode editar (nome e identificador de cada agenda) e os eventos da agenda escolhida para cada profissional.</li>
+    <li><strong>Google Agenda</strong> (escopos <code>calendar.events</code> e <code>calendar.calendarlist.readonly</code>), somente se o dono do estabelecimento conectar: a lista de agendas em que a conta pode editar (nome e identificador de cada agenda) e os eventos da agenda escolhida para cada profissional.</li>
   </ul>
 
   <h3>Como usamos esses dados</h3>
@@ -88,7 +88,7 @@ import { COMPANY, SITE } from '../site'
   <div lang="en">
     <p>
       {SITE.name} optionally lets users sign in with Google and connect Google Calendar.
-      <strong>Data accessed:</strong> with Google Sign-In, the user's name, email address and Google account ID; with Google Calendar (scopes calendar.events and calendar.readonly), the list of writable calendars and the events of the calendar chosen for each professional.
+      <strong>Data accessed:</strong> with Google Sign-In, the user's name, email address and Google account ID; with Google Calendar (scopes calendar.events and calendar.calendarlist.readonly), the list of writable calendars and the events of the calendar chosen for each professional.
       <strong>Use:</strong> the account data is used only to create and sign in to the {SITE.name} account; calendar access is used only to create, update and delete events for appointments booked in {SITE.name}, and to read the start and end times of existing events so busy times are not offered to customers.
       <strong>Storage and protection:</strong> the OAuth refresh token is stored encrypted; event details from Google are not stored; all traffic uses HTTPS.
       <strong>Sharing:</strong> Google user data is not sold, not shared with third parties, not sent to AI providers, not used for advertising and not used to train AI models.
