@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro'
+import PostCard from '../../components/PostCard.astro'
+import FinalCta from '../../components/FinalCta.astro'
+import { getPosts, formatDate } from '../../lib'
+import { SITE } from '../../site'
+
+const posts = await getPosts()
+const [first, ...rest] = posts
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: `Blog do ${SITE.name}`,
+    url: new URL('/blog/', Astro.site).toString(),
+    blogPost: posts.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.data.title,
+      url: new URL(`/blog/${p.id}/`, Astro.site).toString(),
+      datePublished: p.data.pubDate.toISOString(),
+    })),
+  },
+]
+---
+
+<Base
+  title="Blog: agenda, atendimento e WhatsApp para barbearias e salões"
+  description="Dicas práticas para barbearias e salões de beleza: como reduzir faltas, organizar a agenda, atender melhor no WhatsApp e cuidar da gestão do negócio."
+  jsonLd={jsonLd}
+>
+  <section class="wrap py-16 sm:py-20">
+    <h1 class="max-w-3xl text-5xl font-extrabold leading-[0.98] sm:text-6xl">Blog do Dingo</h1>
+    <p class="mt-4 max-w-2xl text-lg text-liquen">
+      Ideias práticas para encher a agenda, faltar menos cliente e perder menos tempo no WhatsApp.
+    </p>
+
+    {
+      first && (
+        <article class="group relative mt-12 grid gap-6 rounded-[32px] border border-musgo bg-mata/50 p-7 transition-colors hover:border-raposa/60 sm:p-10 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+          <div>
+            <p class="text-sm text-liquen">
+              <span class="text-pelagem">{first.data.category}</span> · <time datetime={first.data.pubDate.toISOString()}>{formatDate(first.data.pubDate)}</time>
+            </p>
+            <h2 class="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl">
+              <a href={`/blog/${first.id}/`} class="after:absolute after:inset-0">{first.data.title}</a>
+            </h2>
+          </div>
+          <div>
+            <p class="text-liquen">{first.data.description}</p>
+            <span class="mt-4 inline-block text-sm font-semibold text-pelagem group-hover:underline">Ler artigo</span>
+          </div>
+        </article>
+      )
+    }
+
+    <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {rest.map((p) => <PostCard post={p} />)}
+    </div>
+  </section>
+
+  <FinalCta title="Menos tempo no celular, mais tempo na cadeira." />
+</Base>

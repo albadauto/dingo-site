@@ -1,0 +1,65 @@
+---
+import { PLANS, SETUP_FEE, SITE } from '../site'
+
+interface Props {
+  heading?: 'h1' | 'h2'
+}
+const { heading = 'h2' } = Astro.props
+const Heading = heading
+---
+
+<section id="precos" class="py-20 sm:py-28" aria-labelledby="precos-titulo">
+  <div class="wrap">
+    <div class="max-w-2xl">
+      <Heading id="precos-titulo" class="text-4xl font-extrabold leading-[1.05] sm:text-5xl">
+        Um preço fixo por mês. Sem taxa por mensagem.
+      </Heading>
+      <p class="mt-4 text-lg text-liquen">
+        Comece com {SITE.trialDays} dias grátis, sem cartão. Se gostar, escolha o plano pelo tamanho da sua equipe.
+      </p>
+    </div>
+
+    <div class="mt-12 grid overflow-hidden rounded-3xl border border-musgo md:grid-cols-3">
+      {
+        PLANS.map((p, i) => (
+          <div class:list={['relative flex flex-col p-7', i > 0 && 'border-t border-musgo md:border-l md:border-t-0', p.featured && 'bg-copa/60']}>
+            {p.featured && <span class="absolute inset-x-0 top-0 h-1 bg-raposa" aria-hidden="true" />}
+            <h3 class="text-2xl font-bold">{p.name}</h3>
+            <p class="mt-1 text-sm text-liquen">{p.who}</p>
+            <p class="mt-6 flex items-baseline gap-1">
+              <span class="text-lg text-liquen">R$</span>
+              <span class="font-display text-6xl font-extrabold tracking-tight">{p.price}</span>
+              <span class="text-liquen">/mês</span>
+            </p>
+            <ul class="mt-6 flex-1 space-y-2.5 text-sm">
+              {p.perks.map((perk) => (
+                <li class="flex gap-2.5">
+                  <svg class="mt-0.5 h-4 w-4 shrink-0 text-pelagem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="m5 12 5 5 9-10" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {perk}
+                </li>
+              ))}
+            </ul>
+            <a href={SITE.signupUrl} class:list={['mt-8', p.featured ? 'btn-primary' : 'btn-ghost']}>
+              Testar {SITE.trialDays} dias grátis
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-6 grid gap-4 text-sm md:grid-cols-2">
+      <div class="rounded-2xl border border-musgo p-5">
+        <p class="font-semibold">Todos os planos incluem</p>
+        <p class="mt-1 text-liquen">
+          Atendimento com IA no seu WhatsApp, agenda por profissional, lembretes automáticos, painel de conversas ao vivo e acesso para a equipe.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-musgo p-5">
+        <p class="font-semibold">Implantação opcional: R$ {SETUP_FEE}, uma vez</p>
+        <p class="mt-1 text-liquen">A gente cadastra seus serviços, preços e horários com você e deixa o Dingo falando do seu jeito.</p>
+      </div>
+    </div>
+  </div>
+</section>

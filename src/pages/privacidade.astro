@@ -1,0 +1,60 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { COMPANY, SITE } from '../site'
+---
+
+<Legal title="Política de Privacidade" description={`Como o ${SITE.name} coleta, usa e protege dados pessoais, de acordo com a LGPD.`}>
+  <p>
+    Esta política explica como o {SITE.name}, operado por {COMPANY.legalName} ({COMPANY.document}), trata dados pessoais, de acordo com a Lei Geral de Proteção de Dados (Lei 13.709/2018).
+  </p>
+
+  <h2>Quem é responsável pelos dados</h2>
+  <p>
+    Os dados da <strong>sua conta</strong> (nome, e-mail, telefone e dados do estabelecimento) são tratados pelo {SITE.name} como controlador.
+  </p>
+  <p>
+    Os dados dos <strong>seus clientes</strong> (nome, telefone, mensagens e agendamentos) pertencem ao seu estabelecimento, que é o controlador. O {SITE.name} trata esses dados como operador, apenas para prestar o serviço contratado: responder mensagens, gerenciar a agenda e enviar lembretes.
+  </p>
+
+  <h2>Quais dados tratamos</h2>
+  <ul>
+    <li>Dados de cadastro: nome, e-mail, telefone e dados do estabelecimento.</li>
+    <li>Dados de pagamento: processados pelo Stripe. Não armazenamos números de cartão.</li>
+    <li>Dados de uso do serviço: conversas do WhatsApp conectado, clientes, serviços, profissionais e agendamentos.</li>
+    <li>Dados técnicos: endereço IP e registros de acesso, para segurança e funcionamento.</li>
+  </ul>
+
+  <h2>Para que usamos</h2>
+  <ul>
+    <li>Prestar o serviço: atender mensagens com inteligência artificial, agendar e enviar lembretes.</li>
+    <li>Cobrar a assinatura e emitir comprovantes.</li>
+    <li>Dar suporte e avisar sobre mudanças importantes.</li>
+    <li>Manter a segurança e prevenir fraudes.</li>
+  </ul>
+  <p>Não vendemos dados pessoais e não usamos as conversas dos seus clientes para publicidade.</p>
+
+  <h2>Com quem compartilhamos</h2>
+  <p>Somente com fornecedores necessários para o serviço funcionar, que tratam os dados conforme nossas instruções:</p>
+  <ul>
+    <li>Provedor de inteligência artificial, para gerar as respostas das conversas.</li>
+    <li>Stripe, para processar pagamentos.</li>
+    <li>Provedores de hospedagem e infraestrutura.</li>
+  </ul>
+  <p>Alguns desses fornecedores podem processar dados fora do Brasil, com as garantias previstas na LGPD.</p>
+
+  <h2>Por quanto tempo guardamos</h2>
+  <p>
+    Enquanto a conta estiver ativa. Após o cancelamento, os dados podem ser mantidos pelo prazo necessário para cumprir obrigações legais e depois são excluídos ou anonimizados. Você pode pedir a exclusão antes disso, salvo quando a lei exigir a guarda.
+  </p>
+
+  <h2>Seus direitos</h2>
+  <p>
+    Você pode pedir acesso, correção, portabilidade e exclusão dos seus dados, além de informações sobre o compartilhamento. Clientes de um estabelecimento que usa o {SITE.name} devem fazer esses pedidos ao próprio estabelecimento. Nós ajudamos o estabelecimento a atendê-los.
+  </p>
+
+  <h2>Segurança</h2>
+  <p>Usamos conexões criptografadas, controle de acesso por usuário e separação dos dados de cada estabelecimento.</p>
+
+  <h2>Contato</h2>
+  <p>Dúvidas ou pedidos sobre dados pessoais: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</p>
+</Legal>

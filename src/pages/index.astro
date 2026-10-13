@@ -1,0 +1,185 @@
+---
+import Base from '../layouts/Base.astro'
+import ChatDemo from '../components/ChatDemo.astro'
+import DayTimeline from '../components/DayTimeline.astro'
+import Pricing from '../components/Pricing.astro'
+import Faq from '../components/Faq.astro'
+import FinalCta from '../components/FinalCta.astro'
+import PostCard from '../components/PostCard.astro'
+import { FAQ, PLANS, SITE } from '../site'
+import { getPosts } from '../lib'
+
+const posts = (await getPosts()).slice(0, 3)
+
+const steps = [
+  {
+    title: 'Conecte seu WhatsApp',
+    text: 'No painel, gere o QR code e escaneie com o celular da barbearia, em Aparelhos conectados. O número continua o mesmo.',
+  },
+  {
+    title: 'Cadastre serviços e horários',
+    text: 'Preço e duração de cada serviço, quem faz o quê e o expediente de cada profissional. Leva uns 10 minutos.',
+  },
+  {
+    title: 'O Dingo começa a atender',
+    text: 'Ele responde, mostra só os horários livres de verdade, marca na sua agenda e manda lembrete antes do horário.',
+  },
+]
+
+const features = [
+  ['Agenda por profissional', 'Cada barbeiro ou cabeleireira com seus serviços, horários e folgas. O Dingo nunca marca em cima de outro cliente.'],
+  ['Marca, remarca e cancela', 'O cliente resolve tudo pela conversa, sem link, sem aplicativo e sem cadastro.'],
+  ['Lembrete automático', 'Na véspera, o cliente recebe um lembrete e confirma. Se não puder ir, o Dingo remarca na hora e o horário volta para a agenda.'],
+  ['Você assume quando quiser', 'Respondeu pelo celular? O Dingo fica quieto naquela conversa. Pelo painel você devolve para ele com um clique.'],
+  ['Pede ajuda quando precisa', 'Reclamação, pedido fora do comum ou cliente querendo falar com alguém: a conversa é marcada para você responder.'],
+  ['Painel ao vivo', 'Conversas, agenda do dia, clientes e quanto entrou no mês, no computador ou no celular.'],
+  ['Do seu jeito', 'Você escolhe o tom (descontraído, neutro ou formal) e ensina o que o Dingo precisa saber: endereço, pagamento, regras.'],
+  ['Equipe com login próprio', 'Cada pessoa da equipe entra com o seu acesso para acompanhar conversas e agenda.'],
+]
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: SITE.name,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description: SITE.description,
+    offers: PLANS.map((p) => ({
+      '@type': 'Offer',
+      name: p.name,
+      price: p.price.toFixed(2),
+      priceCurrency: 'BRL',
+      category: 'subscription',
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+]
+---
+
+<Base title={SITE.name} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="wrap grid items-center gap-14 py-16 sm:py-24 lg:grid-cols-[1.35fr_1fr]">
+      <div>
+        <p class="inline-flex items-center gap-2 rounded-full border border-musgo px-3 py-1 text-sm text-liquen">
+          <span class="h-1.5 w-1.5 rounded-full bg-folha"></span>
+          Para barbearias e salões de beleza
+        </p>
+        <h1 class="mt-6 text-[clamp(3rem,7vw,5rem)] font-extrabold leading-[0.92]">
+          Seu WhatsApp responde. Você&nbsp;corta.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-liquen sm:text-xl">
+          O Dingo é uma inteligência artificial que atende seus clientes no WhatsApp: diz o preço, mostra os horários livres, marca, remarca e lembra. Você acompanha tudo e assume a conversa quando quiser.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href={SITE.signupUrl} class="btn-primary !px-6 !py-3.5 text-base">Testar {SITE.trialDays} dias grátis</a>
+          <a href="#como-funciona" class="btn-ghost !px-6 !py-3.5 text-base">Como funciona</a>
+        </div>
+        <p class="mt-4 text-sm text-liquen">Sem cartão. Usa o número que você já tem.</p>
+      </div>
+      <ChatDemo />
+    </div>
+  </section>
+
+  <DayTimeline />
+
+  <!-- Como funciona -->
+  <section id="como-funciona" class="py-20 sm:py-28" aria-labelledby="como-titulo">
+    <div class="wrap">
+      <h2 id="como-titulo" class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">
+        Funcionando hoje, sem trocar de número.
+      </h2>
+      <ol class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+        {
+          steps.map((s, i) => (
+            <li class="border-t-2 border-raposa pt-6">
+              <span class="font-display text-sm font-bold text-pelagem">Passo {i + 1}</span>
+              <h3 class="mt-2 text-2xl font-bold">{s.title}</h3>
+              <p class="mt-2 text-liquen">{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Você no controle -->
+  <section class="border-y border-musgo bg-mata/50 py-20 sm:py-28" aria-labelledby="controle-titulo">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <h2 id="controle-titulo" class="text-4xl font-extrabold leading-[1.05] sm:text-5xl">A conversa é sua. O Dingo só ajuda.</h2>
+        <p class="mt-4 text-lg text-liquen">
+          Tudo o que o Dingo responde aparece no painel na hora. Quer falar você mesmo? É só escrever: ele sai da conversa. Quando terminar, devolve com um clique.
+        </p>
+        <p class="mt-4 text-lg text-liquen">
+          E se aparecer algo que ele não deve resolver sozinho, como uma reclamação, ele avisa o cliente que alguém da equipe vai responder e marca a conversa para você.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-musgo bg-noite p-4 sm:p-6" role="img" aria-label="Painel do Dingo mostrando uma conversa assumida pela equipe">
+        <div class="flex items-center gap-3 rounded-2xl border border-raposa/40 bg-raposa/10 px-4 py-3 text-sm">
+          <img src="/favicon.png" alt="" width="24" height="24" class="h-6 w-6 rounded-md" />
+          <p class="flex-1"><strong class="text-pelagem">O Dingo está respondendo.</strong></p>
+          <span class="rounded-lg border border-musgo bg-mata px-3 py-1.5 text-xs">Assumir conversa</span>
+        </div>
+        <div class="mt-4 space-y-2 text-[14px]">
+          <p class="max-w-[80%] rounded-2xl rounded-bl-md bg-copa px-3.5 py-2.5">Queria falar com o Zé sobre um corte pro casamento</p>
+          <p class="ml-auto max-w-[80%] rounded-2xl rounded-br-md border border-raposa/40 px-3.5 py-2.5">
+            <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>
+            Claro! Vou chamar o Zé pra falar com você.
+          </p>
+          <p class="ml-auto max-w-[80%] rounded-2xl rounded-br-md bg-raposa px-3.5 py-2.5 text-noite">
+            <span class="mb-0.5 block text-[11px] font-bold text-noite/70">Zé</span>
+            Fala, Lucas! Parabéns pelo casamento. Me conta a data que eu separo um horário.
+          </p>
+        </div>
+        <p class="mt-4 text-center text-xs text-liquen">O Zé respondeu, e o Dingo saiu da conversa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recursos -->
+  <section class="py-20 sm:py-28" aria-labelledby="recursos-titulo">
+    <div class="wrap">
+      <h2 id="recursos-titulo" class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">
+        Tudo que a recepção faz, sem recepção.
+      </h2>
+      <dl class="mt-12 grid gap-x-12 sm:grid-cols-2">
+        {
+          features.map(([title, text]) => (
+            <div class="border-t border-musgo py-6">
+              <dt class="text-lg font-bold">{title}</dt>
+              <dd class="mt-1 text-liquen">{text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <div class="border-t border-musgo"><Pricing /></div>
+
+  <div class="border-t border-musgo"><Faq /></div>
+
+  {
+    posts.length > 0 && (
+      <section class="border-t border-musgo py-20 sm:py-28" aria-labelledby="blog-titulo">
+        <div class="wrap">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <h2 id="blog-titulo" class="text-4xl font-extrabold leading-[1.05] sm:text-5xl">Do blog</h2>
+            <a href="/blog/" class="text-sm font-semibold text-pelagem hover:underline">Ver todos os artigos</a>
+          </div>
+          <div class="mt-10 grid gap-6 md:grid-cols-3">
+            {posts.map((p) => <PostCard post={p} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <FinalCta />
+</Base>

@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro'
+import Pricing from '../components/Pricing.astro'
+import Faq from '../components/Faq.astro'
+import FinalCta from '../components/FinalCta.astro'
+import { FAQ, PLANS, SITE } from '../site'
+
+const faq = FAQ.filter((f) => /teste|cancelar|implantação|número/i.test(f.q))
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: `${SITE.name}: atendimento com IA no WhatsApp`,
+    description: SITE.description,
+    brand: { '@type': 'Brand', name: SITE.name },
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'BRL',
+      lowPrice: Math.min(...PLANS.map((p) => p.price)).toFixed(2),
+      highPrice: Math.max(...PLANS.map((p) => p.price)).toFixed(2),
+      offerCount: PLANS.length,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+]
+---
+
+<Base
+  title="Preços"
+  description={`Planos do Dingo a partir de R$ ${PLANS[0].price}/mês: atendimento com IA no WhatsApp, agenda e lembretes para barbearias e salões. ${SITE.trialDays} dias grátis, sem cartão.`}
+  jsonLd={jsonLd}
+>
+  <Pricing heading="h1" />
+  <div class="border-t border-musgo"><Faq items={faq} /></div>
+  <FinalCta />
+</Base>

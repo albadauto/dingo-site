@@ -1,0 +1,113 @@
+---
+// "Um dia na barbearia": o que chega no WhatsApp enquanto o barbeiro não pode responder.
+const moments = [
+  {
+    time: '07:12',
+    you: 'Você ainda nem abriu a porta',
+    client: 'Bom dia! Hoje tem horário pra corte?',
+    dingo: 'Bom dia! Hoje tenho às 10h, 11h30 e 15h. Qual prefere?',
+  },
+  {
+    time: '10:40',
+    you: 'Navalha na mão, cliente na cadeira',
+    client: 'Quanto tá a barba?',
+    dingo: 'A barba sai R$ 35 e leva uns 30 minutos. Quer marcar?',
+  },
+  {
+    time: '13:05',
+    you: 'Hora do almoço',
+    client: 'Consigo passar meu horário de hoje pra amanhã?',
+    dingo: 'Consegue! Amanhã tenho 9h30 ou 14h com o Rafa. Remarco pra qual?',
+  },
+  {
+    time: '16:20',
+    you: 'Três clientes esperando',
+    client: 'Vocês aceitam Pix?',
+    dingo: 'Aceitamos Pix, cartão e dinheiro.',
+  },
+  {
+    time: '20:55',
+    you: 'Já fechou e foi pra casa',
+    client: 'Tô com febre, não vou conseguir ir amanhã 😕',
+    dingo: 'Melhoras! Cancelei seu horário de amanhã. Quando quiser remarcar, é só chamar.',
+  },
+  {
+    time: '23:47',
+    you: 'Dormindo',
+    client: 'Tem horário sábado de manhã?',
+    dingo: 'Tenho sábado às 9h e 10h30. Já deixo reservado pra você?',
+  },
+]
+const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3))
+---
+
+<section class="border-y border-musgo bg-mata/50 py-20 sm:py-28" aria-labelledby="dia-titulo">
+  <div class="wrap">
+    <div class="max-w-2xl">
+      <h2 id="dia-titulo" class="text-4xl font-extrabold leading-[1.05] sm:text-5xl">
+        O WhatsApp não para. Você não precisa parar.
+      </h2>
+      <p class="mt-4 text-lg text-liquen">
+        Um dia comum: mensagens chegando enquanto você atende, almoça, fecha a loja e dorme. O Dingo responde cada uma na hora, com seus preços e a sua agenda de verdade.
+      </p>
+    </div>
+
+    <!-- Régua de 24h: cada ponto é uma mensagem do dia -->
+    <div class="relative mt-14 hidden h-10 md:block" aria-hidden="true">
+      <div class="absolute inset-x-0 top-1/2 h-px bg-musgo"></div>
+      {
+        [0, 6, 12, 18, 24].map((h) => (
+          <span class="absolute top-0 -translate-x-1/2 text-xs text-liquen" style={`left:${(h / 24) * 100}%`}>
+            {String(h).padStart(2, '0')}h
+          </span>
+        ))
+      }
+      {
+        moments.map((m) => (
+          <span
+            class="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-raposa ring-4 ring-noite"
+            style={`left:${(toMin(m.time) / 1440) * 100}%`}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <ol class="timeline scroll-thin mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4">
+    {
+      moments.map((m) => (
+        <li class="w-[300px] shrink-0 snap-start sm:w-[330px]">
+          <article class="flex h-full flex-col rounded-3xl border border-musgo bg-noite p-5">
+            <p class="font-display text-5xl font-extrabold tracking-tight text-raposa">{m.time}</p>
+            <p class="mt-1 text-sm text-liquen">{m.you}</p>
+            <div class="mt-5 flex flex-1 flex-col gap-2 text-[14px] leading-snug">
+              <p class="ml-auto max-w-[88%] rounded-2xl rounded-br-md bg-copa px-3.5 py-2.5">{m.client}</p>
+              <p class="max-w-[90%] rounded-2xl rounded-bl-md border border-raposa/40 px-3.5 py-2.5">
+                <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>
+                {m.dingo}
+              </p>
+            </div>
+          </article>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  /* Alinha o primeiro cartão com o conteúdo (max-w-6xl) e deixa o resto vazar para a direita */
+  .timeline {
+    padding-inline: max(1rem, calc((100% - 72rem) / 2 + 1.5rem));
+    scroll-padding-inline: max(1rem, calc((100% - 72rem) / 2 + 1.5rem));
+  }
+  @media (max-width: 639px) {
+    .timeline {
+      padding-inline: 1rem;
+      scroll-padding-inline: 1rem;
+    }
+  }
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-musgo) transparent;
+  }
+</style>

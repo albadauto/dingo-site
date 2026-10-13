@@ -1,0 +1,74 @@
+---
+// Página por público (barbearias / salões), com texto e exemplos próprios para SEO.
+import Base from '../layouts/Base.astro'
+import Pricing from './Pricing.astro'
+import FinalCta from './FinalCta.astro'
+import { SITE } from '../site'
+
+interface Props {
+  metaTitle: string
+  metaDescription: string
+  title: string
+  lead: string
+  conversation: { from: 'c' | 'd'; text: string }[]
+  pains: { title: string; text: string }[]
+  examples: string[]
+}
+const { metaTitle, metaDescription, title, lead, conversation, pains, examples } = Astro.props
+---
+
+<Base title={metaTitle} description={metaDescription}>
+  <section class="wrap grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[1.3fr_1fr]">
+    <div>
+      <h1 class="text-[clamp(2.5rem,5.5vw,4.25rem)] font-extrabold leading-[0.95]">{title}</h1>
+      <p class="mt-6 max-w-xl text-lg text-liquen sm:text-xl">{lead}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={SITE.signupUrl} class="btn-primary !px-6 !py-3.5 text-base">Testar {SITE.trialDays} dias grátis</a>
+        <a href="/precos/" class="btn-ghost !px-6 !py-3.5 text-base">Ver preços</a>
+      </div>
+    </div>
+    <div class="rounded-[32px] border border-musgo bg-mata p-5" role="img" aria-label="Exemplo de conversa no WhatsApp">
+      <div class="space-y-2.5 text-[14px] leading-snug">
+        {
+          conversation.map((m) => (
+            <p
+              class:list={[
+                'max-w-[86%] whitespace-pre-line rounded-2xl px-3.5 py-2.5',
+                m.from === 'c' ? 'ml-auto rounded-br-md bg-copa' : 'rounded-bl-md border border-raposa/40 bg-noite',
+              ]}
+            >
+              {m.from === 'd' && <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>}
+              {m.text}
+            </p>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-musgo bg-mata/50 py-20">
+    <div class="wrap">
+      <h2 class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">O que muda no seu dia</h2>
+      <dl class="mt-10 grid gap-x-12 sm:grid-cols-2">
+        {
+          pains.map((p) => (
+            <div class="border-t border-musgo py-6">
+              <dt class="text-lg font-bold">{p.title}</dt>
+              <dd class="mt-1 text-liquen">{p.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="wrap py-20">
+    <h2 class="max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl">Perguntas que o Dingo responde sozinho</h2>
+    <ul class="mt-8 flex flex-wrap gap-2.5">
+      {examples.map((e) => <li class="rounded-full border border-musgo px-4 py-2 text-sm">“{e}”</li>)}
+    </ul>
+  </section>
+
+  <div class="border-t border-musgo"><Pricing /></div>
+  <FinalCta />
+</Base>

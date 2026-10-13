@@ -1,0 +1,32 @@
+---
+import AudiencePage from '../components/AudiencePage.astro'
+---
+
+<AudiencePage
+  metaTitle="Atendimento e agendamento pelo WhatsApp para barbearia"
+  metaDescription="O Dingo atende os clientes da sua barbearia no WhatsApp com inteligência artificial: preço, horários livres, agendamento por barbeiro e lembrete. 7 dias grátis."
+  title="O recepcionista que a sua barbearia não precisa contratar."
+  lead="Enquanto você está com a máquina na mão, o Dingo responde quem chama no WhatsApp, mostra os horários livres de cada barbeiro e já deixa marcado na agenda."
+  conversation={[
+    { from: 'c', text: 'Fala! Tem horário hoje pra degradê?' },
+    { from: 'd', text: 'Fala! Hoje tenho com o Rafa às 16h e às 17h30, e com o Paulo às 18h. Qual fica melhor?' },
+    { from: 'c', text: '17h30 com o Rafa' },
+    { from: 'd', text: 'Fechado: corte degradê hoje às 17h30 com o Rafa, R$ 45. Te espero! ✂️' },
+  ]}
+  pains={[
+    { title: 'Não para o corte para responder', text: 'O cliente da cadeira recebe atenção total, e quem chama no WhatsApp tem resposta na hora.' },
+    { title: 'Agenda de cada barbeiro', text: 'O Dingo sabe quem faz cada serviço e quando cada um trabalha. Nada de dois clientes no mesmo horário.' },
+    { title: 'Menos falta', text: 'Lembrete na véspera com confirmação. Quem não puder ir remarca pela própria conversa.' },
+    { title: 'Atende fora do horário', text: 'Muita gente marca à noite e no domingo. O Dingo responde nesses horários também.' },
+  ]}
+  examples={[
+    'Quanto tá corte e barba?',
+    'Tem horário sábado de manhã?',
+    'Pode ser com o Paulo?',
+    'Consigo remarcar pra amanhã?',
+    'Vocês aceitam Pix?',
+    'Onde fica a barbearia?',
+    'Faz pigmentação?',
+    'Até que horas vocês abrem?',
+  ]}
+/>

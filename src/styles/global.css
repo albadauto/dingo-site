@@ -1,0 +1,86 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Mesma paleta do painel, tirada da logo */
+@theme {
+  --color-noite: #011a10;
+  --color-mata: #052619;
+  --color-copa: #0a3222;
+  --color-musgo: #174634;
+  --color-raposa: #fd7016;
+  --color-pelagem: #fea04e;
+  --color-osso: #edf3ee;
+  --color-liquen: #8da699;
+  --color-folha: #4fd08f;
+
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-noite font-sans text-osso antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    @apply bg-raposa text-noite;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-pelagem;
+  }
+}
+
+@utility wrap {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition-colors;
+}
+@utility btn-primary {
+  @apply btn bg-raposa text-noite hover:bg-pelagem;
+}
+@utility btn-ghost {
+  @apply btn border border-musgo text-osso hover:border-liquen;
+}
+
+/* Texto dos artigos do blog */
+.prose-dingo {
+  --tw-prose-body: #d6e2da;
+  --tw-prose-headings: var(--color-osso);
+  --tw-prose-lead: var(--color-liquen);
+  --tw-prose-links: var(--color-pelagem);
+  --tw-prose-bold: var(--color-osso);
+  --tw-prose-counters: var(--color-pelagem);
+  --tw-prose-bullets: var(--color-raposa);
+  --tw-prose-hr: var(--color-musgo);
+  --tw-prose-quotes: var(--color-osso);
+  --tw-prose-quote-borders: var(--color-raposa);
+  --tw-prose-captions: var(--color-liquen);
+  --tw-prose-code: var(--color-pelagem);
+  --tw-prose-th-borders: var(--color-musgo);
+  --tw-prose-td-borders: var(--color-musgo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

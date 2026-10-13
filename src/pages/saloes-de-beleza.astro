@@ -1,0 +1,32 @@
+---
+import AudiencePage from '../components/AudiencePage.astro'
+---
+
+<AudiencePage
+  metaTitle="Agendamento pelo WhatsApp para salão de beleza"
+  metaDescription="Atendimento com IA no WhatsApp para salões de beleza: o Dingo responde preços, encaixa serviços longos na agenda de cada profissional e lembra as clientes. 7 dias grátis."
+  title="Seu salão atendendo no WhatsApp, até com as mãos ocupadas."
+  lead="Escova, coloração, manicure: cada serviço com sua duração e sua profissional. O Dingo conversa com as clientes, encontra o horário certo na agenda de cada uma e manda o lembrete."
+  conversation={[
+    { from: 'c', text: 'Oi! Queria fazer luzes e corte, tem horário sexta?' },
+    { from: 'd', text: 'Oi! Luzes + corte levam umas 3h. Sexta tenho com a Carla às 9h ou às 13h. Qual prefere?' },
+    { from: 'c', text: '13h' },
+    { from: 'd', text: 'Prontinho! Luzes + corte sexta às 13h com a Carla. Te mando um lembrete na quinta 💛' },
+  ]}
+  pains={[
+    { title: 'Serviços longos sem dor de cabeça', text: 'O Dingo considera a duração de cada serviço e só oferece horários em que ele cabe inteiro na agenda da profissional.' },
+    { title: 'Cada profissional com sua agenda', text: 'Quem faz coloração, quem faz unha, quem trabalha no sábado. Tudo cadastrado uma vez e respeitado sempre.' },
+    { title: 'Menos horário vazio', text: 'Lembrete com confirmação na véspera e remarcação pela própria conversa quando a cliente não puder ir.' },
+    { title: 'Você no controle', text: 'Veja todas as conversas no painel e responda você mesma quando quiser. O Dingo sai da conversa na hora.' },
+  ]}
+  examples={[
+    'Quanto custa a escova?',
+    'Quanto tempo leva a progressiva?',
+    'Tem horário com a Carla?',
+    'Dá pra fazer pé e mão juntos?',
+    'Consigo trocar pra semana que vem?',
+    'Aceita cartão?',
+    'Vocês abrem domingo?',
+    'Onde vocês ficam?',
+  ]}
+/>

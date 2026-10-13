@@ -1,0 +1,51 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { COMPANY, PLANS, SETUP_FEE, SITE } from '../site'
+---
+
+<Legal title="Termos de Uso" description={`Condições para usar o ${SITE.name}: teste grátis, assinatura, cancelamento e responsabilidades.`}>
+  <p>
+    Estes termos regulam o uso do {SITE.name}, serviço de atendimento com inteligência artificial no WhatsApp para estabelecimentos de beleza, operado por {COMPANY.legalName} ({COMPANY.document}). Ao criar uma conta, você concorda com eles.
+  </p>
+
+  <h2>O serviço</h2>
+  <p>
+    O {SITE.name} conecta-se ao WhatsApp do seu estabelecimento por QR code para responder clientes, consultar e registrar agendamentos e enviar lembretes, com base nas informações que você cadastra. Você pode acompanhar e assumir qualquer conversa pelo painel.
+  </p>
+
+  <h2>Teste grátis</h2>
+  <p>
+    Toda conta nova tem {SITE.trialDays} dias de teste gratuito, sem cadastro de cartão. Ao final do teste, sem uma assinatura ativa, o atendimento automático é pausado e o painel fica restrito à área de assinatura. Seus dados continuam guardados.
+  </p>
+
+  <h2>Planos e pagamento</h2>
+  <p>
+    Os planos são mensais: {PLANS.map((p) => `${p.name} (R$ ${p.price})`).join(', ')}. A implantação assistida é opcional e custa R$ {SETUP_FEE}, cobrada uma única vez. Os pagamentos são processados pelo Stripe e renovados automaticamente a cada mês. Os preços podem ser reajustados com aviso prévio.
+  </p>
+
+  <h2>Cancelamento</h2>
+  <p>
+    Você pode cancelar a qualquer momento pelo painel, sem multa. O acesso continua até o fim do período já pago. Não há reembolso proporcional de meses iniciados, salvo quando exigido por lei.
+  </p>
+
+  <h2>Suas responsabilidades</h2>
+  <ul>
+    <li>Manter corretos os preços, serviços, profissionais e horários cadastrados, pois o atendimento se baseia neles.</li>
+    <li>Usar o serviço apenas para atender os clientes do seu estabelecimento, sem envio de mensagens em massa ou não solicitadas.</li>
+    <li>Respeitar a legislação, inclusive a LGPD, em relação aos dados dos seus clientes.</li>
+    <li>Manter o celular conectado à internet e seguir as regras de uso do WhatsApp.</li>
+  </ul>
+
+  <h2>Limites do serviço</h2>
+  <p>
+    A inteligência artificial pode cometer erros. Por isso, todas as conversas ficam visíveis no painel e podem ser assumidas pela equipe a qualquer momento. A conexão com o WhatsApp depende de serviços de terceiros e pode ser interrompida por mudanças ou restrições aplicadas por eles, inclusive ao número conectado. Não nos responsabilizamos por perdas decorrentes dessas interrupções ou de informações incorretas cadastradas pelo usuário.
+  </p>
+
+  <h2>Alterações</h2>
+  <p>Podemos atualizar estes termos. Mudanças importantes serão avisadas por e-mail ou no painel.</p>
+
+  <h2>Contato e foro</h2>
+  <p>
+    Dúvidas: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>. Fica eleito o foro de {COMPANY.city}, salvo disposição legal em contrário.
+  </p>
+</Legal>
