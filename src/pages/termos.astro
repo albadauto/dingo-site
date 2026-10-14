@@ -5,13 +5,42 @@ import { COMPANY, PLANS, SETUP_FEE, SITE } from '../site'
 
 <Legal title="Termos de Uso" description={`Condições para usar o ${SITE.name}: teste grátis, assinatura, cancelamento e responsabilidades.`}>
   <p>
-    Estes termos regulam o uso do {SITE.name}, serviço de atendimento com inteligência artificial no WhatsApp para estabelecimentos de beleza, operado por {COMPANY.legalName} ({COMPANY.document}). Ao criar uma conta, você concorda com eles.
+    Estes termos regulam o uso do {SITE.name}, serviço de atendimento com inteligência artificial no WhatsApp para estabelecimentos de beleza, operado por {COMPANY.legalName} ({COMPANY.document}). Ao criar uma conta e marcar "Li e concordo com as políticas do {SITE.name}", você concorda com eles e com a <a href="/privacidade">Política de Privacidade</a>.
   </p>
 
   <h2>O serviço</h2>
   <p>
     O {SITE.name} conecta-se ao WhatsApp do seu estabelecimento por QR code para responder clientes, consultar e registrar agendamentos e enviar lembretes, com base nas informações que você cadastra. Você pode acompanhar e assumir qualquer conversa pelo painel.
   </p>
+
+  <h2 id="whatsapp">WhatsApp: responsabilidade pelo número conectado</h2>
+  <p>
+    <strong>Leia com atenção antes de conectar o seu número.</strong> Ao marcar "Li e concordo com as políticas do {SITE.name}" no cadastro, você declara que leu e aceita as condições abaixo.
+  </p>
+  <ul>
+    <li>
+      O {SITE.name} não é afiliado, patrocinado ou aprovado pelo WhatsApp ou pela Meta. A conexão é feita pelo pareamento de dispositivo (QR code), o mesmo recurso usado pelo WhatsApp Web, e não pela API oficial do WhatsApp Business.
+    </li>
+    <li>
+      O número conectado e a conta de WhatsApp são <strong>seus</strong>. Você é o único responsável pelo uso deles e por cumprir os Termos de Serviço e as políticas do WhatsApp.
+    </li>
+    <li>
+      O WhatsApp pode, a qualquer momento e por critérios próprios, restringir, suspender ou banir números, inclusive os que usam automação ou ferramentas de terceiros. Esse risco existe mesmo com uso normal e não pode ser eliminado pelo {SITE.name}.
+    </li>
+    <li>
+      <strong>O {SITE.name} não se responsabiliza por restrição, suspensão, bloqueio ou banimento do seu número</strong>, nem por perda de conversas, contatos, mídias, clientes, agendamentos, faturamento ou quaisquer outros prejuízos decorrentes disso.
+    </li>
+    <li>
+      Um eventual bloqueio ou banimento do número não gera direito a reembolso. Você pode cancelar a assinatura a qualquer momento, conforme a seção Cancelamento.
+    </li>
+  </ul>
+  <p>Para diminuir o risco, recomendamos:</p>
+  <ul>
+    <li>Usar o WhatsApp Business num número com histórico de uso, e não um chip novo.</li>
+    <li>Não usar o {SITE.name} para mensagens em massa, listas compradas ou contatos que não pediram para falar com você.</li>
+    <li>Responder e atender os clientes normalmente, sem enviar links ou mensagens repetitivas em grande volume.</li>
+    <li>Manter o backup das conversas ativado no seu celular.</li>
+  </ul>
 
   <h2>Teste grátis</h2>
   <p>
