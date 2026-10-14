@@ -99,9 +99,9 @@ export const FAQ = [
 
 // Dados da empresa para Privacidade e Termos. Preencha antes de publicar.
 export const COMPANY = {
-  legalName: "[RAZÃO SOCIAL]",
-  document: "[CNPJ]",
-  email: "[contato@seudominio.com.br]",
-  city: "[Cidade/UF]",
+  legalName: "MIND IT SOLUÇÕES DIGITAIS I.S",
+  document: "69.533.366/0001-22",
+  email: "contato@mindit.dev",
+  city: "São Paulo - SP",
   updated: "12 de outubro de 2026",
 };
