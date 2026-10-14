@@ -1,7 +1,7 @@
 // Dados usados em todo o site. Ajuste aqui nome, links e preços.
 
 const appUrl = (
-  import.meta.env.PUBLIC_APP_URL || "https://app.dingoapp.com.br"
+  import.meta.env.PUBLIC_APP_URL || "https://my.dingoapp.com.br"
 ).replace(/\/$/, "");
 
 export const SITE = {
