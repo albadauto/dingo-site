@@ -19,10 +19,10 @@ const Heading = heading
       </p>
     </div>
 
-    <div class="mt-12 grid overflow-hidden rounded-3xl border border-musgo md:grid-cols-3">
+    <div class="mt-12 grid overflow-hidden rounded-3xl border border-musgo md:grid-cols-2 xl:grid-cols-4">
       {
         PLANS.map((p, i) => (
-          <div class:list={['relative flex flex-col p-7', i > 0 && 'border-t border-musgo md:border-l md:border-t-0', p.featured && 'bg-copa/60']}>
+          <div class:list={['relative flex flex-col p-7', i > 0 && 'border-t border-musgo', i % 2 === 1 && 'md:border-l', i === 1 && 'md:border-t-0', i > 1 && 'xl:border-t-0', i === 2 && 'xl:border-l', p.featured && 'bg-copa/60']}>
             {p.featured && <span class="absolute inset-x-0 top-0 h-1 bg-raposa" aria-hidden="true" />}
             <h3 class="text-2xl font-bold">{p.name}</h3>
             <p class="mt-1 text-sm text-liquen">{p.who}</p>

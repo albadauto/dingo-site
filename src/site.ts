@@ -17,15 +17,23 @@ export const SITE = {
 
 export const PLANS = [
   {
-    key: "essencial",
-    name: "Essencial",
-    price: 89,
-    who: "Para quem atende sozinho ou em dupla",
+    key: "solo",
+    name: "Solo",
+    price: 59,
+    who: "Para quem atende sozinha",
     perks: [
       "Dingo atendendo 24h no WhatsApp",
       "Agenda, clientes e lembretes",
-      "Até 2 profissionais",
+      "1 profissional",
+      "Até 300 conversas por mês",
     ],
+  },
+  {
+    key: "essencial",
+    name: "Essencial",
+    price: 89,
+    who: "Para quem atende em dupla",
+    perks: ["Tudo do Solo", "Até 2 profissionais", "Conversas ilimitadas"],
   },
   {
     key: "profissional",
