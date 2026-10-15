@@ -110,6 +110,9 @@ export const COMPANY = {
   legalName: "MIND IT SOLUÇÕES DIGITAIS I.S",
   document: "69.533.366/0001-22",
   email: "contato@mindit.dev",
+  // O Dingo é um produto Mind It!
+  brand: "Mind It!",
+  site: "https://mindit.dev",
   city: "São Paulo - SP",
   updated: "12 de outubro de 2026",
 };
