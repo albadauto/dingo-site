@@ -72,6 +72,14 @@ export const FAQ = [
     a: "Em serviços que têm retoque ou manutenção, você informa depois de quantos dias a cliente deve voltar. Na data, o Dingo chama a cliente no WhatsApp e já oferece horários. Quem já marcou de novo não recebe a mensagem.",
   },
   {
+    q: "As clientes podem marcar sozinhas, sem conversar?",
+    a: "Podem. Todo estabelecimento ganha um link de agendamento (para a bio do Instagram, o status ou um QR code no balcão). A cliente escolhe o serviço, o profissional e o horário, e o Dingo confirma pelo WhatsApp. Funciona com a mesma agenda do atendimento por WhatsApp, sem horário duplicado.",
+  },
+  {
+    q: "Prefiro eu mesma responder minhas clientes. O Dingo serve?",
+    a: "Serve. Você escolhe quando o Dingo responde: sempre, só fora do seu expediente, ou só quando ninguém da equipe responder em alguns minutos. No resto do tempo, você atende e recebe as mensagens normalmente.",
+  },
+  {
     q: "Preciso de outro número de WhatsApp?",
     a: "Não. Você conecta o número que já usa, escaneando um QR code, do mesmo jeito que entra no WhatsApp Web. Você continua usando o WhatsApp normalmente no celular.",
   },
