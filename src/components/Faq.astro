@@ -3,15 +3,16 @@ import { FAQ, SITE } from '../site'
 
 interface Props {
   items?: { q: string; a: string }[]
+  lead?: string
 }
-const { items = FAQ } = Astro.props
+const { items = FAQ, lead = `Não achou sua dúvida? Crie a conta e teste: são ${SITE.trialDays} dias grátis, sem cartão.` } = Astro.props
 ---
 
 <section class="py-20 sm:py-28" aria-labelledby="faq-titulo">
   <div class="wrap grid gap-10 lg:grid-cols-[1fr_1.6fr]">
     <div>
       <h2 id="faq-titulo" class="text-4xl font-extrabold leading-[1.05] sm:text-5xl">Perguntas frequentes</h2>
-      <p class="mt-4 text-liquen">Não achou sua dúvida? Crie a conta e teste: são {SITE.trialDays} dias grátis, sem cartão.</p>
+      <p class="mt-4 text-liquen">{lead}</p>
     </div>
     <div class="divide-y divide-musgo border-y border-musgo">
       {

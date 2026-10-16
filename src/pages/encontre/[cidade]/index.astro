@@ -1,0 +1,53 @@
+---
+// Página por cidade: todos os estabelecimentos da busca do Dingo nela, por tipo.
+import Base from '../../../layouts/Base.astro'
+import PlaceList from '../../../components/PlaceList.astro'
+import { KINDS, bookingUrl, cities, placesIn, searchUrl, type City, type Place } from '../../../directory'
+
+export async function getStaticPaths() {
+  const list = await cities()
+  return Promise.all(list.map(async (city) => ({ params: { cidade: city.city_slug }, props: { city, places: await placesIn(city.city_slug) } })))
+}
+
+const { city, places } = Astro.props as { city: City; places: Place[] }
+const where = `${city.city}/${city.state}`
+const groups = Object.entries(KINDS)
+  .map(([type, k]) => ({ type, k, list: places.filter((p) => p.business_type === type) }))
+  .filter((g) => g.list.length)
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Onde agendar em ${where}`,
+    itemListElement: places.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: { '@type': 'BeautySalon', name: p.name, url: bookingUrl(p), address: p.address || undefined },
+    })),
+  },
+]
+---
+
+<Base
+  audience="cliente"
+  title={`Barbearias, salões e nail designers em ${where} com agendamento online`}
+  description={`${places.length} estabelecimentos de beleza em ${where} para agendar online pelo Dingo: escolha o serviço, o profissional e o horário.`}
+  jsonLd={jsonLd}
+>
+  <section class="wrap max-w-3xl py-14 sm:py-20">
+    <h1 class="text-[clamp(2.2rem,5vw,3.5rem)] font-extrabold leading-[1]">Agende em {where}</h1>
+    <p class="mt-4 max-w-xl text-lg text-liquen">Escolha o lugar, o serviço e o horário. A confirmação chega no seu WhatsApp.</p>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {groups.map((g) => <a href={`/encontre/${city.city_slug}/${g.k.path}/`} class="btn-ghost">{g.k.plural} ({g.list.length})</a>)}
+      <a href={`${searchUrl}?perto=1`} class="btn-ghost">Buscar perto de mim</a>
+    </div>
+    {
+      groups.map((g) => (
+        <section class="mt-12">
+          <h2 class="mb-4 text-2xl font-bold">{g.k.plural} em {city.city}</h2>
+          <PlaceList places={g.list} />
+        </section>
+      ))
+    }
+  </section>
+</Base>

@@ -9,7 +9,7 @@ const { title = 'Deixe o Dingo atender amanhã de manhã.' } = Astro.props
 
 <section class="pb-24 pt-8">
   <div class="wrap">
-    <div class="relative overflow-hidden rounded-[36px] bg-raposa px-6 py-14 text-noite sm:px-14 sm:py-20">
+    <div class="relative overflow-hidden rounded-[36px] bg-raposa px-6 py-14 text-tinta sm:px-14 sm:py-20">
       <img
         src="/fox.png"
         alt=""
@@ -20,12 +20,12 @@ const { title = 'Deixe o Dingo atender amanhã de manhã.' } = Astro.props
         class="fox pointer-events-none absolute -bottom-24 -right-20 w-[300px] sm:w-[440px]"
       />
       <h2 class="relative max-w-2xl text-4xl font-extrabold leading-[1.02] sm:text-6xl">{title}</h2>
-      <p class="relative mt-4 max-w-lg text-lg font-medium text-noite/80">
+      <p class="relative mt-4 max-w-lg text-lg font-medium text-tinta/80">
         Crie a conta, escaneie o QR code e teste por {SITE.trialDays} dias. Sem cartão, sem fidelidade.
       </p>
       <div class="relative mt-8 flex flex-wrap gap-3">
-        <a href={SITE.signupUrl} class="btn bg-noite text-osso hover:bg-mata">Começar teste grátis</a>
-        <a href="/precos/" class="btn border border-noite/30 hover:bg-noite/10">Ver preços</a>
+        <a href={SITE.signupUrl} class="btn bg-tinta text-giz hover:bg-tinta/85">Começar teste grátis</a>
+        <a href="/precos/" class="btn border border-tinta/30 hover:bg-tinta/10">Ver preços</a>
       </div>
     </div>
   </div>

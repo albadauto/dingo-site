@@ -1,0 +1,52 @@
+---
+// Página por cidade e tipo (ex.: /encontre/sao-paulo-sp/barbearias/).
+import Base from '../../../layouts/Base.astro'
+import PlaceList from '../../../components/PlaceList.astro'
+import { KINDS, bookingUrl, cities, placesIn, searchUrl, type City, type Place } from '../../../directory'
+
+export async function getStaticPaths() {
+  const list = await cities()
+  const paths = []
+  for (const city of list) {
+    for (const [type, k] of Object.entries(KINDS)) {
+      if (!city.types[type]) continue
+      paths.push({ params: { cidade: city.city_slug, tipo: k.path }, props: { city, type, places: await placesIn(city.city_slug, type) } })
+    }
+  }
+  return paths
+}
+
+const { city, type, places } = Astro.props as { city: City; type: string; places: Place[] }
+const k = KINDS[type]
+const where = `${city.city}/${city.state}`
+const districts = [...new Set(places.map((p) => p.district).filter(Boolean))].slice(0, 6)
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${k.plural} em ${where}`,
+    itemListElement: places.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: { '@type': type === 'barbearia' ? 'BarberShop' : type === 'nail' ? 'NailSalon' : 'BeautySalon', name: p.name, url: bookingUrl(p), address: p.address || undefined },
+    })),
+  },
+]
+---
+
+<Base
+  audience="cliente"
+  title={`${k.plural} em ${where} com agendamento online`}
+  description={`${places.length} ${places.length === 1 ? k.one : k.plural.toLowerCase()} em ${where}${districts.length ? ` (${districts.join(', ')})` : ''} para agendar online, sem ligar nem esperar resposta.`}
+  jsonLd={jsonLd}
+>
+  <section class="wrap max-w-3xl py-14 sm:py-20">
+    <a href={`/encontre/${city.city_slug}/`} class="text-sm text-liquen hover:text-osso">{where}</a>
+    <h1 class="mt-2 text-[clamp(2.2rem,5vw,3.5rem)] font-extrabold leading-[1]">{k.plural} em {city.city}</h1>
+    <p class="mt-4 max-w-xl text-lg text-liquen">
+      Veja os horários livres e marque na hora{districts.length ? `, em ${districts.join(', ')}` : ''}. A confirmação chega no seu WhatsApp.
+    </p>
+    <div class="mt-10"><PlaceList places={places} /></div>
+    <p class="mt-8 text-sm text-liquen">Não achou no seu bairro? <a href={`${searchUrl}?perto=1`} class="font-semibold text-pelagem hover:underline">Buscar perto de mim</a></p>
+  </section>
+</Base>

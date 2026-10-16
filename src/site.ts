@@ -4,6 +4,9 @@ const appUrl = (
   import.meta.env.PUBLIC_APP_URL || "https://my.dingoapp.com.br"
 ).replace(/\/$/, "");
 
+// Endereço do painel (onde ficam as páginas de agendamento /agendar/<estabelecimento>)
+export const APP_URL = appUrl;
+
 export const SITE = {
   name: "Dingo",
   tagline: "A IA que atende o WhatsApp do seu negócio de beleza",

@@ -1,133 +1,168 @@
 ---
+// Página inicial: para quem quer marcar um horário (busca) e, logo abaixo, para quem atende.
+// A página completa para negócios fica em /para-negocios/.
 import Base from '../layouts/Base.astro'
 import ChatDemo from '../components/ChatDemo.astro'
-import DayTimeline from '../components/DayTimeline.astro'
-import Pricing from '../components/Pricing.astro'
 import Faq from '../components/Faq.astro'
-import FinalCta from '../components/FinalCta.astro'
-import PostCard from '../components/PostCard.astro'
-import { FAQ, PLANS, SITE } from '../site'
-import { getPosts } from '../lib'
+import { SITE } from '../site'
+import { cities, searchUrl } from '../directory'
 
-const posts = (await getPosts()).slice(0, 3)
+const cityList = (await cities()).slice(0, 12)
+
+const kinds = [
+  { type: 'barbearia', icon: '💈', title: 'Barbearia', text: 'Corte, barba e sobrancelha com o barbeiro que você prefere.' },
+  { type: 'salao', icon: '💇‍♀️', title: 'Salão de beleza', text: 'Corte, escova, coloração, mechas e tratamentos.' },
+  { type: 'nail', icon: '💅', title: 'Unhas', text: 'Manicure, pé e mão, alongamento, gel e manutenção.' },
+  { type: 'micropigmentacao', icon: '✨', title: 'Sobrancelha e micro', text: 'Design, henna, micropigmentação e retoque.' },
+]
 
 const steps = [
+  { n: '1', title: 'Encontre', text: 'Busque pelo bairro, pela cidade ou toque em “Perto de mim”. Você vê quem está aberto e o preço a partir de quanto.' },
+  { n: '2', title: 'Escolha o horário', text: 'Serviço, profissional e um horário que está livre de verdade. Nada de esperar alguém responder a mensagem.' },
+  { n: '3', title: 'Pronto', text: 'A confirmação chega no seu WhatsApp, e um lembrete antes do horário. Precisa remarcar? É só responder lá.' },
+]
+
+const forBusiness = [
+  ['Atende o WhatsApp 24h', 'Uma IA responde preço, mostra os horários livres e marca, até de madrugada.'],
+  ['Agenda, lembrete e retorno', 'Lembra o cliente na véspera e chama de volta na hora do próximo corte ou manutenção.'],
+  ['Link para marcar sozinho', 'Na bio do Instagram, no status ou num QR code no balcão.'],
+  ['Aparece nesta busca', 'Quem procura no seu bairro encontra você e já marca. Cliente novo sem pagar anúncio.'],
+]
+
+const faq = [
   {
-    title: 'Conecte seu WhatsApp',
-    text: 'No painel, gere o QR code e escaneie com o celular do seu negócio, em Aparelhos conectados. O número continua o mesmo.',
+    q: 'Preciso pagar alguma coisa para agendar?',
+    a: 'Não. Para você, que vai marcar o horário, o Dingo é grátis. O pagamento do serviço é feito direto no estabelecimento, do jeito que ele aceita.',
   },
   {
-    title: 'Cadastre serviços e horários',
-    text: 'Preço, duração e prazo de retorno de cada serviço, quem faz o quê e o expediente de cada profissional. Leva uns 10 minutos, e a conta já vem com exemplos do seu tipo de negócio.',
+    q: 'Tenho que baixar aplicativo ou criar conta?',
+    a: 'Não. Você marca pelo navegador do celular, informando só o nome e o WhatsApp. A confirmação e o lembrete chegam por lá.',
   },
   {
-    title: 'O Dingo começa a atender',
-    text: 'Ele responde, mostra só os horários livres de verdade, marca na sua agenda e manda lembrete antes do horário.',
+    q: 'Como remarco ou cancelo?',
+    a: 'Responda a mensagem de confirmação no WhatsApp do estabelecimento pedindo para remarcar ou cancelar. O horário volta para a agenda na hora.',
+  },
+  {
+    q: 'O lugar que eu frequento não aparece. E agora?',
+    a: 'Só aparecem os estabelecimentos que usam o Dingo e escolheram estar na busca. Indique o Dingo para o seu barbeiro, salão ou manicure: assim você passa a marcar com eles por aqui.',
   },
 ]
 
-const features = [
-  ['Agenda por profissional', 'Cada profissional com seus serviços, horários e folgas. O Dingo nunca marca em cima de outro cliente.'],
-  ['Chama a cliente de volta', 'Retoque da micropigmentação, manutenção do gel, o corte do mês: na data certa, o Dingo chama a cliente e já oferece horários.'],
-  ['Marca, remarca e cancela', 'O cliente resolve tudo pela conversa, sem link, sem aplicativo e sem cadastro.'],
-  ['Lembrete automático', 'Na véspera, o cliente recebe um lembrete e confirma. Se não puder ir, o Dingo remarca na hora e o horário volta para a agenda.'],
-  ['Você assume quando quiser', 'Respondeu pelo celular? O Dingo fica quieto naquela conversa. Pelo painel você devolve para ele com um clique.'],
-  ['Pede ajuda quando precisa', 'Reclamação, pedido fora do comum ou cliente querendo falar com alguém: a conversa é marcada para você responder.'],
-  ['Painel ao vivo', 'Conversas, agenda do dia, clientes e quanto entrou no mês, no computador ou no celular.'],
-  ['Do seu jeito', 'Você escolhe o tom (descontraído, neutro ou formal) e ensina o que o Dingo precisa saber: endereço, pagamento, regras.'],
-  ]
-
-const audiences = [
-  { href: '/nail-designers/', icon: '💅', title: 'Nail designers', text: 'Responde enquanto você está com a mão no gel e chama a cliente na data da manutenção.' },
-  { href: '/micropigmentacao/', icon: '✨', title: 'Micropigmentação', text: 'Passa valores, agenda avaliação e procedimento e chama a cliente para o retoque.' },
-  { href: '/barbearias/', icon: '💈', title: 'Barbearias', text: 'Agenda de cada barbeiro, preço na ponta da língua e lembrete na véspera.' },
-  { href: '/saloes-de-beleza/', icon: '💇‍♀️', title: 'Salões de beleza', text: 'Vários profissionais e serviços longos, sem conflito de horário.' },
-]
+const indicate = encodeURIComponent(
+  `Oi! Você já conhece o Dingo? Com ele dá pra eu marcar horário com você direto pelo celular, e uma IA responde o seu WhatsApp quando você está ocupado. Dá uma olhada: ${new URL('/para-negocios/', Astro.site)}`,
+)
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+    '@type': 'WebSite',
     name: SITE.name,
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
-    description: SITE.description,
-    offers: PLANS.map((p) => ({
-      '@type': 'Offer',
-      name: p.name,
-      price: p.price.toFixed(2),
-      priceCurrency: 'BRL',
-      category: 'subscription',
-    })),
+    url: Astro.site?.toString(),
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: { '@type': 'EntryPoint', urlTemplate: `${searchUrl}?q={search_term_string}` },
+      'query-input': 'required name=search_term_string',
+    },
   },
   {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
   },
 ]
 ---
 
-<Base title={SITE.name} jsonLd={jsonLd}>
-  <!-- Hero -->
+<Base
+  title="Encontre e agende barbearia, salão, unhas e sobrancelha"
+  description="Encontre barbearias, salões, manicures e estúdios de sobrancelha perto de você e marque na hora, sem trocar mensagem. A confirmação chega no seu WhatsApp. Grátis e sem aplicativo."
+  jsonLd={jsonLd}
+  audience="cliente"
+>
+  <!-- Hero: busca -->
   <section class="relative overflow-hidden">
-    <div class="wrap grid items-center gap-14 py-16 sm:py-24 lg:grid-cols-[1.35fr_1fr]">
+    <div class="wrap grid items-center gap-14 py-14 sm:py-20 lg:grid-cols-[1.25fr_1fr]">
       <div>
         <p class="inline-flex items-center gap-2 rounded-full border border-musgo px-3 py-1 text-sm text-liquen">
           <span class="h-1.5 w-1.5 rounded-full bg-folha"></span>
-          IA para negócios de beleza
+          Barbearias, salões, unhas e sobrancelha
         </p>
-        <h1 class="mt-6 text-[clamp(3rem,7vw,5rem)] font-extrabold leading-[0.92]">
-          Seu WhatsApp responde. Você&nbsp;atende.
+        <h1 class="mt-6 text-[clamp(2.6rem,5.6vw,4.25rem)] font-extrabold leading-[0.93]">
+          Seu próximo horário, marcado em&nbsp;segundos.
         </h1>
         <p class="mt-6 max-w-xl text-lg text-liquen sm:text-xl">
-          O Dingo é uma inteligência artificial que atende o WhatsApp do seu negócio de beleza: diz o preço, mostra os horários livres, marca, lembra e chama a cliente de volta na hora do retoque ou da manutenção. Você acompanha tudo e assume a conversa quando quiser.
+          Encontre perto de você, veja os horários livres de verdade e marque sem trocar mensagem. A confirmação chega no seu WhatsApp.
         </p>
-        <div class="mt-9 flex flex-wrap items-center gap-3">
-          <a href={SITE.signupUrl} class="btn-primary !px-6 !py-3.5 text-base">Testar {SITE.trialDays} dias grátis</a>
-          <a href="#como-funciona" class="btn-ghost !px-6 !py-3.5 text-base">Como funciona</a>
-        </div>
-        <p class="mt-4 text-sm text-liquen">Sem cartão. Usa o número que você já tem.</p>
-      </div>
-      <ChatDemo />
-    </div>
-  </section>
 
-  <DayTimeline />
-
-  <!-- Para quem -->
-  <section id="para-quem" class="py-20 sm:py-28" aria-labelledby="quem-titulo">
-    <div class="wrap">
-      <h2 id="quem-titulo" class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">Feito para quem trabalha com as mãos ocupadas.</h2>
-      <p class="mt-4 max-w-2xl text-lg text-liquen">Na hora do cadastro você escolhe o seu tipo de negócio, e o Dingo já começa com os serviços e o jeito de falar certos.</p>
-      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {
-          audiences.map((a) => (
-            <li>
-              <a href={a.href} class="group flex h-full flex-col rounded-3xl border border-musgo bg-mata/50 p-6 transition-colors hover:border-raposa/60">
-                <span class="text-3xl" aria-hidden="true">{a.icon}</span>
-                <h3 class="mt-4 text-xl font-bold group-hover:text-pelagem">{a.title}</h3>
-                <p class="mt-2 flex-1 text-sm text-liquen">{a.text}</p>
-                <span class="mt-5 text-sm font-semibold text-pelagem">Ver como funciona →</span>
+        <form action={searchUrl} method="get" class="mt-8 flex max-w-xl flex-col gap-2 sm:flex-row" role="search">
+          <label class="flex flex-1 items-center gap-2 rounded-full bg-white px-5 text-tinta ring-1 ring-musgo focus-within:ring-2 focus-within:ring-pelagem">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 text-[#52695d]" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+            </svg>
+            <span class="sr-only">Bairro ou cidade</span>
+            <input name="q" required placeholder="Bairro ou cidade" autocomplete="address-level2" class="h-14 min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-[#52695d]" />
+            <button class="hidden rounded-full bg-tinta px-4 py-2 text-sm font-bold text-giz hover:bg-tinta/85 sm:block">Buscar</button>
+          </label>
+          <a href={`${searchUrl}?perto=1`} class="btn-primary !h-14 !px-6 text-base">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"></path><circle cx="12" cy="12" r="7"></circle>
+            </svg>
+            Perto de mim
+          </a>
+        </form>
+        <div class="mt-4 flex flex-wrap gap-2">
+          {
+            kinds.map((k) => (
+              <a href={`${searchUrl}?tipo=${k.type}`} class="rounded-full border border-musgo px-3.5 py-1.5 text-sm text-liquen transition-colors hover:border-liquen hover:text-osso">
+                <span aria-hidden="true">{k.icon}</span> {k.title}
               </a>
-            </li>
-          ))
-        }
-      </ul>
+            ))
+          }
+        </div>
+        <p class="mt-6 text-sm text-liquen">Grátis para você. Sem baixar aplicativo e sem criar conta.</p>
+      </div>
+
+      <!-- Prévia de como a cliente marca -->
+      <div class="relative mx-auto w-full max-w-sm" aria-hidden="true">
+        <div class="absolute -inset-10 -z-10 rounded-full bg-raposa/10 blur-3xl"></div>
+        <div class="rounded-[32px] border border-musgo bg-mata p-3 shadow-2xl shadow-black/50">
+          <div class="relative h-28 overflow-hidden rounded-[24px] bg-copa">
+            <img src="/fox.png" alt="" width="200" height="200" class="absolute -right-6 -top-8 w-44 opacity-10" />
+            <span class="absolute bottom-3 left-4 grid h-12 w-12 place-items-center rounded-2xl bg-noite font-display text-lg font-extrabold text-raposa">BZ</span>
+          </div>
+          <div class="px-2 pb-2 pt-4">
+            <p class="font-display text-lg font-bold">Barbearia do Zé</p>
+            <p class="text-sm text-liquen">Pinheiros, São Paulo · <span class="font-semibold text-folha">Aberto agora</span></p>
+            <div class="mt-4 flex items-center justify-between rounded-2xl border border-raposa/60 bg-raposa/10 px-4 py-3 text-sm">
+              <span><strong class="block">Corte + barba</strong><span class="text-liquen">50 min com o Rafa</span></span>
+              <strong>R$ 70</strong>
+            </div>
+            <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-liquen">Sábado, 18</p>
+            <div class="mt-2 grid grid-cols-4 gap-2 text-center text-sm">
+              <span class="rounded-xl border border-musgo py-2">09:00</span>
+              <span class="rounded-xl border border-musgo py-2 text-liquen/50 line-through">09:50</span>
+              <span class="rounded-xl bg-raposa py-2 font-bold text-tinta">10:40</span>
+              <span class="rounded-xl border border-musgo py-2">11:30</span>
+            </div>
+            <span class="mt-4 block rounded-full bg-raposa py-3 text-center text-sm font-bold text-tinta">Confirmar horário</span>
+          </div>
+        </div>
+        <div class="relative z-10 -mt-2 ml-auto -mr-2 w-fit max-w-[260px] rounded-2xl rounded-br-md bg-[#1f6b47] px-4 py-3 text-sm text-giz shadow-xl shadow-black/30 sm:-mr-10">
+          <span class="mb-0.5 block text-[11px] font-bold text-[#b6f0cf]">WhatsApp · Barbearia do Zé</span>
+          ✅ Está marcado! Sábado, 10:40, corte + barba com o Rafa. Te lembro na véspera.
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Como funciona -->
-  <section id="como-funciona" class="py-20 sm:py-28" aria-labelledby="como-titulo">
+  <!-- Como funciona para você -->
+  <section class="py-16 sm:py-24" aria-labelledby="voce-titulo">
     <div class="wrap">
-      <h2 id="como-titulo" class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">
-        Funcionando hoje, sem trocar de número.
-      </h2>
+      <h2 id="voce-titulo" class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">Sem esperar ninguém responder.</h2>
       <ol class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
         {
-          steps.map((s, i) => (
+          steps.map((s) => (
             <li class="border-t-2 border-raposa pt-6">
-              <span class="font-display text-sm font-bold text-pelagem">Passo {i + 1}</span>
+              <span class="font-display text-sm font-bold text-pelagem">Passo {s.n}</span>
               <h3 class="mt-2 text-2xl font-bold">{s.title}</h3>
               <p class="mt-2 text-liquen">{s.text}</p>
             </li>
@@ -137,78 +172,93 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- Você no controle -->
-  <section class="border-y border-musgo bg-mata/50 py-20 sm:py-28" aria-labelledby="controle-titulo">
-    <div class="wrap grid items-center gap-12 lg:grid-cols-2">
-      <div>
-        <h2 id="controle-titulo" class="text-4xl font-extrabold leading-[1.05] sm:text-5xl">A conversa é sua. O Dingo só ajuda.</h2>
-        <p class="mt-4 text-lg text-liquen">
-          Tudo o que o Dingo responde aparece no painel na hora. Quer falar você mesmo? É só escrever: ele sai da conversa. Quando terminar, devolve com um clique.
-        </p>
-        <p class="mt-4 text-lg text-liquen">
-          E se aparecer algo que ele não deve resolver sozinho, como uma reclamação, ele avisa o cliente que alguém da equipe vai responder e marca a conversa para você.
-        </p>
-      </div>
-      <div class="rounded-3xl border border-musgo bg-noite p-4 sm:p-6" role="img" aria-label="Painel do Dingo mostrando uma conversa assumida pela equipe">
-        <div class="flex items-center gap-3 rounded-2xl border border-raposa/40 bg-raposa/10 px-4 py-3 text-sm">
-          <img src="/favicon.png" alt="" width="24" height="24" class="h-6 w-6 rounded-md" />
-          <p class="flex-1"><strong class="text-pelagem">O Dingo está respondendo.</strong></p>
-          <span class="rounded-lg border border-musgo bg-mata px-3 py-1.5 text-xs">Assumir conversa</span>
-        </div>
-        <div class="mt-4 space-y-2 text-[14px]">
-          <p class="max-w-[80%] rounded-2xl rounded-bl-md bg-copa px-3.5 py-2.5">Queria falar com a Ju sobre as unhas pro meu casamento</p>
-          <p class="ml-auto max-w-[80%] rounded-2xl rounded-br-md border border-raposa/40 px-3.5 py-2.5">
-            <span class="mb-0.5 block text-[11px] font-bold text-pelagem">Dingo</span>
-            Que lindo! Vou chamar a Ju pra falar com você.
-          </p>
-          <p class="ml-auto max-w-[80%] rounded-2xl rounded-br-md bg-raposa px-3.5 py-2.5 text-noite">
-            <span class="mb-0.5 block text-[11px] font-bold text-noite/70">Ju</span>
-            Oi, Carol! Parabéns pelo casamento 💍 Me conta a data que eu separo um horário especial.
-          </p>
-        </div>
-        <p class="mt-4 text-center text-xs text-liquen">A Ju respondeu, e o Dingo saiu da conversa.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Recursos -->
-  <section class="py-20 sm:py-28" aria-labelledby="recursos-titulo">
+  <!-- Tipos -->
+  <section class="pb-16 sm:pb-24" aria-labelledby="tipos-titulo">
     <div class="wrap">
-      <h2 id="recursos-titulo" class="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl">
-        Tudo que a recepção faz, sem recepção.
-      </h2>
-      <dl class="mt-12 grid gap-x-12 sm:grid-cols-2">
+      <h2 id="tipos-titulo" class="text-3xl font-extrabold leading-[1.05] sm:text-4xl">O que você quer fazer?</h2>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
-          features.map(([title, text]) => (
-            <div class="border-t border-musgo py-6">
-              <dt class="text-lg font-bold">{title}</dt>
-              <dd class="mt-1 text-liquen">{text}</dd>
-            </div>
+          kinds.map((k) => (
+            <li>
+              <a href={`${searchUrl}?tipo=${k.type}&perto=1`} class="group flex h-full flex-col rounded-3xl border border-musgo bg-mata/50 p-6 transition-colors hover:border-raposa/60">
+                <span class="text-3xl" aria-hidden="true">{k.icon}</span>
+                <h3 class="mt-4 text-xl font-bold group-hover:text-pelagem">{k.title}</h3>
+                <p class="mt-2 flex-1 text-sm text-liquen">{k.text}</p>
+                <span class="mt-5 text-sm font-semibold text-pelagem">Ver perto de mim →</span>
+              </a>
+            </li>
           ))
         }
-      </dl>
+      </ul>
+
+      {
+        cityList.length > 0 && (
+          <div class="mt-12">
+            <h3 class="text-lg font-bold">Onde já tem Dingo</h3>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {cityList.map((c) => (
+                <a href={`/encontre/${c.city_slug}/`} class="rounded-full border border-musgo px-4 py-2 text-sm transition-colors hover:border-liquen">
+                  {c.city}/{c.state} <span class="text-liquen">· {c.total}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
     </div>
   </section>
 
-  <div class="border-t border-musgo"><Pricing /></div>
-
-  <div class="border-t border-musgo"><Faq /></div>
-
-  {
-    posts.length > 0 && (
-      <section class="border-t border-musgo py-20 sm:py-28" aria-labelledby="blog-titulo">
-        <div class="wrap">
-          <div class="flex flex-wrap items-end justify-between gap-4">
-            <h2 id="blog-titulo" class="text-4xl font-extrabold leading-[1.05] sm:text-5xl">Do blog</h2>
-            <a href="/blog/" class="text-sm font-semibold text-pelagem hover:underline">Ver todos os artigos</a>
-          </div>
-          <div class="mt-10 grid gap-6 md:grid-cols-3">
-            {posts.map((p) => <PostCard post={p} />)}
-          </div>
+  <!-- Para quem atende -->
+  <section id="para-negocios" class="border-y border-musgo bg-mata/60 py-20 sm:py-28" aria-labelledby="negocio-titulo">
+    <div class="wrap grid items-center gap-14 lg:grid-cols-[1.2fr_1fr]">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-wider text-pelagem">Para quem atende</p>
+        <h2 id="negocio-titulo" class="mt-3 text-4xl font-extrabold leading-[1.02] sm:text-5xl">
+          Tem barbearia, salão ou estúdio? O Dingo atende seu WhatsApp e ainda traz cliente novo.
+        </h2>
+        <dl class="mt-10 grid gap-x-10 sm:grid-cols-2">
+          {
+            forBusiness.map(([title, text]) => (
+              <div class="border-t border-musgo py-5">
+                <dt class="font-bold">{title}</dt>
+                <dd class="mt-1 text-sm text-liquen">{text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href={SITE.signupUrl} class="btn-primary !px-6 !py-3.5 text-base">Testar {SITE.trialDays} dias grátis</a>
+          <a href="/para-negocios/" class="btn-ghost !px-6 !py-3.5 text-base">Conhecer o Dingo para negócios</a>
         </div>
-      </section>
-    )
-  }
+        <p class="mt-4 text-sm text-liquen">Sem cartão. Usa o número de WhatsApp que você já tem.</p>
+      </div>
+      <ChatDemo />
+    </div>
+  </section>
 
-  <FinalCta />
+  <div class="border-b border-musgo">
+    <Faq items={faq} lead="Para quem vai marcar um horário. Tem um negócio? Veja as perguntas na página para negócios." />
+  </div>
+
+  <!-- Indique -->
+  <section class="py-20 sm:py-24">
+    <div class="wrap">
+      <div class="relative overflow-hidden rounded-[36px] bg-raposa px-6 py-12 text-tinta sm:px-14 sm:py-16">
+        <img src="/fox.png" alt="" aria-hidden="true" width="420" height="420" loading="lazy" class="fox pointer-events-none absolute -bottom-24 -right-20 w-[280px] sm:w-[400px]" />
+        <h2 class="relative max-w-2xl text-3xl font-extrabold leading-[1.05] sm:text-5xl">Queria marcar com o seu barbeiro por aqui?</h2>
+        <p class="relative mt-4 max-w-lg text-lg font-medium text-tinta/80">Mande o Dingo para ele, para o seu salão ou para a sua manicure. Leva 10 minutos para começar.</p>
+        <div class="relative mt-8 flex flex-wrap gap-3">
+          <a href={`https://wa.me/?text=${indicate}`} target="_blank" rel="noopener" class="btn bg-tinta text-giz hover:bg-tinta/85">Indicar pelo WhatsApp</a>
+          <a href={`${searchUrl}?perto=1`} class="btn border border-tinta/30 hover:bg-tinta/10">Buscar perto de mim</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>
+
+<style>
+  .fox {
+    filter: brightness(0);
+    opacity: 0.14;
+  }
+</style>

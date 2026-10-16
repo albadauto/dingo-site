@@ -15,6 +15,8 @@ interface Props {
   noindex?: boolean
   publishedTime?: Date
   modifiedTime?: Date
+  /** Para quem é a página: muda o menu e o botão principal do topo */
+  audience?: 'cliente' | 'negocio'
 }
 
 const {
@@ -26,6 +28,7 @@ const {
   noindex = false,
   publishedTime,
   modifiedTime,
+  audience = 'negocio',
 } = Astro.props
 
 const canonical = new URL(Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`, Astro.site)
@@ -52,6 +55,16 @@ const schemas = [organization, ...jsonLd]
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#011A10" />
+    <script is:inline>
+      // Tema antes de pintar a página (sem piscar): escolha salva ou o tema do aparelho
+      ;(function () {
+        var p = 'system'
+        try { p = localStorage.getItem('dingo.theme') || 'system' } catch (e) {}
+        var light = p === 'light' || (p === 'system' && window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches)
+        document.documentElement.dataset.theme = light ? 'light' : 'dark'
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', light ? '#F4F7F4' : '#011A10')
+      })()
+    </script>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -76,10 +89,10 @@ const schemas = [organization, ...jsonLd]
     {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body class="min-h-screen">
-    <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-raposa focus:px-4 focus:py-2 focus:text-noite">
+    <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-raposa focus:px-4 focus:py-2 focus:text-tinta">
       Pular para o conteúdo
     </a>
-    <Header />
+    <Header audience={audience} />
     <main id="conteudo">
       <slot />
     </main>

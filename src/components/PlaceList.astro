@@ -1,0 +1,34 @@
+---
+import { bookingUrl, type Place } from '../directory'
+
+interface Props {
+  places: Place[]
+}
+const { places } = Astro.props
+const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
+const initials = (name: string) =>
+  name.split(/\s+/).filter((w) => w && !/^(d[aeo]s?|e)$/i.test(w)).slice(0, 2).map((w) => w[0].toUpperCase()).join('') || name[0].toUpperCase()
+---
+
+<ul class="divide-y divide-musgo overflow-hidden rounded-3xl border border-musgo bg-mata">
+  {
+    places.map((p) => (
+      <li>
+        <a href={bookingUrl(p)} class="flex items-center gap-4 px-5 py-5 transition-colors hover:bg-copa">
+          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-copa font-display text-lg font-extrabold text-raposa">
+            {initials(p.name)}
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="block truncate text-lg font-semibold">{p.name}</span>
+            <span class="block truncate text-sm text-liquen">
+              {[p.type_label + (p.district ? ` em ${p.district}` : ''), p.price_from != null ? `a partir de ${brl(p.price_from)}` : '']
+                .filter(Boolean)
+                .join(', ')}
+            </span>
+          </span>
+          <span class="btn-primary hidden shrink-0 sm:inline-flex">Agendar</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

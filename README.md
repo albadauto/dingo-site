@@ -27,6 +27,10 @@ docker build --build-arg SITE_URL=https://www.seudominio.com.br --build-arg PUBL
 docker run -p 8080:80 dingo-site
 ```
 
+## Páginas por cidade (/encontre)
+
+Com `PUBLIC_API_URL` apontando para a API e a busca aberta lá (`SEARCH_ENABLED=true`), o build cria uma página por cidade e por tipo, como `/encontre/sao-paulo-sp/` e `/encontre/sao-paulo-sp/barbearias/`, com os estabelecimentos que escolheram aparecer na busca. Elas entram no sitemap e ajudam no Google. Se a API não responder ou a busca estiver fechada, o build passa normalmente sem essas páginas. Como o site é estático, rode o build de novo de tempos em tempos (uma vez por dia basta) para incluir quem entrou.
+
 O `SITE_URL` precisa ser o endereço real: ele vai no sitemap, nos links canônicos e nas imagens de compartilhamento.
 
 ## Páginas
